@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Encuestas</title>
+<body>
+    
+    <h1>Crea una nueva encuesta</h1>
+    <form id="formularioEncuesta">
+        <label for="titulo">Título de la encuesta:</label>
+        <input type="text" id="titulo" name="titulo" required>
+
+        <label for="opciones">Opciones (una por línea):</label>
+        <textarea id="opciones" name="opciones" required></textarea>
+
+        <button type="button" id="miEncuesta">Crear encuesta</button>
+    </form>
+
+    <h2>Encuestas creadas</h2>
+    <ul id="listaEncuestas"></ul>
+  
+
+    <div id="resultados"></div>
+
+    <script src="02.js"></script>
+</body>
+</html>
