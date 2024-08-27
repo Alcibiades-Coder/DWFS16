@@ -14,9 +14,9 @@
 
 ## 1. Bienvenida
 
-Te doy la bienvenida al desarrollo del proyecto número dos que consiste en un sistema de votación en JavaScript, en dicho sistema se aplican conceptos de programación en JavaScript, estructuras de datos, control de flujo y tambien se utilizó Git y GitHub.
+Te doy la bienvenida al desarrollo del proyecto número dos que consiste en un sistema de votación en JavaScript, en dicho sistema se aplican conceptos de programación en JavaScript, estructuras de datos, control de flujo y también se utilizó Git y GitHub.
 
-Se Desarrolló un programa en JavaScript que permite a los usuarios crear encuestas, votar y ver los resultados a traves de la creación de formularios estaticos y dinamicos ademas, del respectivo manejo del DOM y Eventos. Este programa se ejecuta en el navegador, si se desea tambien se puede inspeccionar, enlazado a un archivo `HTML`.
+Se Desarrolló un programa en JavaScript que permite a los usuarios crear encuestas, votar y ver los resultados a través de la creación de formularios estáticos y dinámicos además, del respectivo manejo del DOM y Eventos. Este programa se ejecuta en el navegador, si se desea también se puede inspeccionar, enlazado a un archivo `HTML`.
 
 
 ## 2. Objetivos de aprendizaje
@@ -36,36 +36,32 @@ El objetivo principal de este proyecto fue construir un programa en JavaScript q
 
 ## 3. Demo
 
-Puedes entrar a ver el demo en este vínculo: [LINK](https://github.com/UDDBootcamp/7M_FULLSTACK_M2_PROY/tree/master/demo)
-
-Al acceder, observarás que resolvemos un problema similiar al de este proyecto.
-
-Lee con calma el contenido y la solución de la demo, para que puedas enfrentarte de una mejor manera a este proyecto.
-
+Puedes entrar a ver el código del proyecto en este vínculo: [LINK]
+(https://github.com/Alcibiades-Coder/DWFS16/tree/main/Proyecto%202%20Sist%20Votacion%20JS)
 
 ****
 
 ## 4. ¿Qué se construyó en este proyecto?
 
-Se construyo un programa en JavaScript que permite a los usuarios crear encuestas, votar y ver los resultados en tiempo real. El programa cumple con los siguientes requisitos, tambien agrega funcionalidades y ventajas como:
+Se construyo un programa en JavaScript que permite a los usuarios crear encuestas, votar y ver los resultados en tiempo real. El programa cumple con los siguientes requisitos, también agrega funcionalidades y ventajas como:
 
 - Requisito: Permitir a los usuarios crear encuestas con opciones de respuesta.
 - Requisito: Permitir a los usuarios votar en las encuestas.
 - Requisito: Mostrar los resultados de las encuestas en tiempo real.
 - Requisito: Almacenar los datos de las encuestas y los votos en una variable.
 - Requisito: Implementar la solución utilizando programación orientada a objetos (POO) y programación funcional (PF).
-- Ventaja: Se crean las encuestas a traves de formularios web.
+- Ventaja: Se crean las encuestas a través de formularios web.
 - Ventaja: Se pueden ir limpiando de pantalla las encuestas, sus opciones y resultados.
-- Ventaja: Se trabajón con manejo de DOM mediante tags con ID.
-- Ventaja: Se utilizo inteligencia artificial para generación de comentarios de funcionamiento dentro del codigo.
+- Ventaja: Se trabajó con manejo de DOM mediante tags con ID.
+- Ventaja: Se utilizo inteligencia artificial para generación de comentarios de funcionamiento dentro del código.
   
-La solución se encuentra en un repositorio de GitHub, el cual compartirás es publico.
+La solución se encuentra en un repositorio de GitHub, el cual compartirás es público.
 
 ****
 
 ## 5. Requisitos y entregables    
 
-Según esta lista se revisán si se complen los requisitos mínimos del proyecto:
+Según esta lista se revisan si se cumplen los requisitos mínimos del proyecto:
 
 ### GENERAL
 - [OK] Realizarse de manera individual
@@ -83,45 +79,45 @@ Según esta lista se revisán si se complen los requisitos mínimos del proyecto
   
 ### SOLUCIÓN EN POO
 - [OK] Permitir a los usuarios crear encuestas con opciones de respuesta
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Permitir a los usuarios votar en las encuestas
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Mostrar los resultados de las encuestas
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Almacenar los datos de las encuestas y los votos en una variable
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Almacenar los datos de las encuestas y los votos en una estructura de datos
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Las encuestas deben contener al menos 8 preguntas con opciones de respuesta.
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - ### SOLUCIÓN EN PF
 - [OK] Permitir a los usuarios crear encuestas con opciones de respuesta
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Permitir a los usuarios votar en las encuestas
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Mostrar los resultados de las encuestas
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Almacenar los datos de las encuestas y los votos en una variable
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Almacenar los datos de las encuestas y los votos en una estructura de datos
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 - [OK] Las encuestas deben contener al menos 8 preguntas con opciones de respuesta.
-  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  Funcionalidades y Clases con comentarios descriptivos en el código
   
 ### CONTROL DE VERSIONES
 - [OK] Crear un repositorio en GitHub y subir el proyecto al mismo.
-  Repositorio Publico creado con las estructura solicitada.
+  Repositorio Publico creado con la estructura solicitada.
 
 ### ENTREGA A TIEMPO
 - [OK] Entregar a tiempo el proyecto.
@@ -145,5 +141,4 @@ A partir de los requisitos, el % estará definido de esta forma:
 
 ## 7. Entregas
 
-Se creó un repositorio en GitHub para este proyecto donde se añaden archivo HMTL y de JavaScript que resuelven el problema propuesto. El repositorio es publico.
-
+Se creó un repositorio en GitHub para este proyecto donde se añaden archivo HMTL y de JavaScript que resuelven el problema propuesto. El repositorio es público.
