@@ -36,8 +36,7 @@ El objetivo principal de este proyecto fue construir un programa en JavaScript q
 
 ## 3. Demo
 
-Puedes entrar a ver el código del proyecto en este vínculo: [LINK]
-(https://github.com/Alcibiades-Coder/DWFS16/tree/main/Proyecto%202%20Sist%20Votacion%20JS)
+Puedes entrar a ver el código del proyecto en este vínculo: [LINK](https://github.com/Alcibiades-Coder/DWFS16/tree/main/Proyecto%202%20Sist%20Votacion%20JS)
 
 ****
 
