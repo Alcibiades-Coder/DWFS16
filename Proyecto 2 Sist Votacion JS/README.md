@@ -14,14 +14,14 @@
 
 ## 1. Bienvenida
 
-Te damos la bienvenida al proyecto número dos, el cual aplicarás conceptos de programación en JavaScript, estructuras de datos, control de flujo y utilizarás Git y GitHub.
+Te doy la bienvenida al desarrollo del proyecto número dos que consiste en un sistema de votación en JavaScript, en dicho sistema se aplican conceptos de programación en JavaScript, estructuras de datos, control de flujo y tambien se utilizó Git y GitHub.
 
-Desarrollarás un programa en JavaScript que permita a los usuarios crear encuestas, votar y ver los resultados aplicando comandos en terminal. Este programa se podrá ejecutar en el navegador, para visualizarse a través de la consola, enlazado a un archivo `HTML`.
+Se Desarrolló un programa en JavaScript que permite a los usuarios crear encuestas, votar y ver los resultados a traves de la creación de formularios estaticos y dinamicos ademas, del respectivo manejo del DOM y Eventos. Este programa se ejecuta en el navegador, si se desea tambien se puede inspeccionar, enlazado a un archivo `HTML`.
 
 
 ## 2. Objetivos de aprendizaje
 
-El objetivo principal de este proyecto es construir un programa en JavaScript que fortalezca las siguientes habilidades y conocimientos:
+El objetivo principal de este proyecto fue construir un programa en JavaScript que fortalece las siguientes habilidades y conocimientos:
 
 - Aplicación de conceptos básicos de programación en JavaScript.
 - Uso de variables, constantes, operadores aritméticos y de comparación.
@@ -45,60 +45,94 @@ Lee con calma el contenido y la solución de la demo, para que puedas enfrentart
 
 ****
 
-## 4. ¿Qué construirás en este proyecto?
+## 4. ¿Qué se construyó en este proyecto?
 
-Construirás un programa en JavaScript que permita a los usuarios crear encuestas, votar y ver los resultados en tiempo real. El programa debe cumplir con los siguientes requisitos:
+Se construyo un programa en JavaScript que permite a los usuarios crear encuestas, votar y ver los resultados en tiempo real. El programa cumple con los siguientes requisitos, tambien agrega funcionalidades y ventajas como:
 
-- Permitir a los usuarios crear encuestas con opciones de respuesta.
-- Permitir a los usuarios votar en las encuestas.
-- Mostrar los resultados de las encuestas en tiempo real.
-- Almacenar los datos de las encuestas y los votos en una variable.
-- Implementar la solución utilizando programación orientada a objetos (POO) y programación funcional (PF).
-
-Subirás tu solución a un repositorio de GitHub, el cual compartirás con tu equipo educativo, posteriormente.
+- Requisito: Permitir a los usuarios crear encuestas con opciones de respuesta.
+- Requisito: Permitir a los usuarios votar en las encuestas.
+- Requisito: Mostrar los resultados de las encuestas en tiempo real.
+- Requisito: Almacenar los datos de las encuestas y los votos en una variable.
+- Requisito: Implementar la solución utilizando programación orientada a objetos (POO) y programación funcional (PF).
+- Ventaja: Se crean las encuestas a traves de formularios web.
+- Ventaja: Se pueden ir limpiando de pantalla las encuestas, sus opciones y resultados.
+- Ventaja: Se trabajón con manejo de DOM mediante tags con ID.
+- Ventaja: Se utilizo inteligencia artificial para generación de comentarios de funcionamiento dentro del codigo.
+  
+La solución se encuentra en un repositorio de GitHub, el cual compartirás es publico.
 
 ****
 
 ## 5. Requisitos y entregables    
 
-Usa esta lista para saber los requisitos mínimos del proyecto:
+Según esta lista se revisán si se complen los requisitos mínimos del proyecto:
 
 ### GENERAL
-- [ ] Realizarse de manera individual
-
+- [OK] Realizarse de manera individual
+  Realizado por Alcibiades Oyarzún Neilson DWFS16
+  
 ### ARQUITECTURA DE CARPETAS
 
-- [ ] Crear dos carpetas en el repositorio: `poo` y `pf`
-- [ ] En la carpeta `poo`, agregar un archivo `index.js` y un archivo `index.html` para la solución POO
-- [ ] En la carpeta `pf`, agregar un archivo `index.js` y un archivo `index.html` para la solución PF
- 
+- [OK] Crear dos carpetas en el repositorio: `poo` y `pf`
+  Repositorio Publicado con las carpetas solicitadas.
+  
+- [OK] En la carpeta `poo`, agregar un archivo `index.js` y un archivo `index.html` para la solución POO
+  Repositorio Publicado con los archivos solicitados.
+- [OK] En la carpeta `pf`, agregar un archivo `index.js` y un archivo `index.html` para la solución PF
+  Repositorio Publicado con los archivos solicitados.
+  
 ### SOLUCIÓN EN POO
-- [ ] Permitir a los usuarios crear encuestas con opciones de respuesta
-- [ ] Permitir a los usuarios votar en las encuestas
-- [ ] Mostrar los resultados de las encuestas
-- [ ] Almacenar los datos de las encuestas y los votos en una variable
-- [ ] Almacenar los datos de las encuestas y los votos en una estructura de datos
-- [ ] Las encuestas deben contener al menos 8 preguntas con opciones de respuesta.
-- 
+- [OK] Permitir a los usuarios crear encuestas con opciones de respuesta
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Permitir a los usuarios votar en las encuestas
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Mostrar los resultados de las encuestas
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Almacenar los datos de las encuestas y los votos en una variable
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Almacenar los datos de las encuestas y los votos en una estructura de datos
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Las encuestas deben contener al menos 8 preguntas con opciones de respuesta.
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
 - ### SOLUCIÓN EN PF
-- [ ] Permitir a los usuarios crear encuestas con opciones de respuesta
-- [ ] Permitir a los usuarios votar en las encuestas
-- [ ] Mostrar los resultados de las encuestas
-- [ ] Almacenar los datos de las encuestas y los votos en una variable
-- [ ] Almacenar los datos de las encuestas y los votos en una estructura de datos
-- [ ] Las encuestas deben contener al menos 8 preguntas con opciones de respuesta.
-
+- [OK] Permitir a los usuarios crear encuestas con opciones de respuesta
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Permitir a los usuarios votar en las encuestas
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Mostrar los resultados de las encuestas
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Almacenar los datos de las encuestas y los votos en una variable
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Almacenar los datos de las encuestas y los votos en una estructura de datos
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
+- [OK] Las encuestas deben contener al menos 8 preguntas con opciones de respuesta.
+  Funcionalidades y Clases con comentarios descriptivos en el codigo
+  
 ### CONTROL DE VERSIONES
-- [ ] Crear un repositorio en GitHub y subir el proyecto al mismo.
+- [OK] Crear un repositorio en GitHub y subir el proyecto al mismo.
+  Repositorio Publico creado con las estructura solicitada.
 
 ### ENTREGA A TIEMPO
-- [ ] Entregar a tiempo el proyecto.
+- [OK] Entregar a tiempo el proyecto.
+  Plazo de Entrega 09/09/2024
+  Entrega de Proyecto 27/08/2024 
 
 ****
 
 ## 6. Criterios de evaluación
 
-A partir de los requisitos, tu % estará definido de esta forma:
+A partir de los requisitos, el % estará definido de esta forma:
 
 | ÁREA                                                  | % DEL TOTAL |
 | ----------------------------------------------------- |:-----------:|
@@ -111,8 +145,5 @@ A partir de los requisitos, tu % estará definido de esta forma:
 
 ## 7. Entregas
 
-Crea un repositorio en GitHub para este proyecto y añade un archivo de JavaScript que resuelva el problema propuesto. Al finalizar, comparte el enlace al repositorio con los instructores para su revisión.
+Se creó un repositorio en GitHub para este proyecto donde se añaden archivo HMTL y de JavaScript que resuelven el problema propuesto. El repositorio es publico.
 
-**Definición de fechas.** Habla con tus coaches sobre el periodo de entregas del proyecto.
-
-**Cumple con los requisitos y entregables.** Debes verificar que cumplas con todo lo que listamos en esta sección y tomes en cuenta el tiempo establecido para ello, ya que de esto depende que obtengas tu insignia.
