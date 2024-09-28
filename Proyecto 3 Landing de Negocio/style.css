@@ -120,6 +120,62 @@
     box-sizing: border-box;          
   }
 
+  .prodbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: blue;
+    height: 500px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;          
+  }
+
+  .titleprod {
+    font-family: "Anton", sans-serif;
+    font-size: 44px;
+    transition: color 0.3s ease;
+    color:white;
+    text-decoration: none;
+  }
+
+  .prodcontainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: lightseagreen;
+    width: 80rem;
+    height: 500px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+  }
+
+  .productos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightcoral;
+    font-family: "Anton", sans-serif;
+    font-size: 40px;
+    color: white;
+    width: 300px;
+    height: 300px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    margin: 1rem 0rem;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0rem;
+    cursor: pointer;
+  }
+
+  .productos:hover {
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
+  }
+
   .firstpara {
     display: flex;
     flex-flow: column wrap;
@@ -311,20 +367,35 @@ section {
         height: 700px;
     }
 
+    .prodbox {
+      height: 700px;
+      padding: 20px;
+      border: none;
+      box-sizing: border-box;          
+    }
+  
+    .titleprod {
+      font-size: 24px;
+    }
+  
+    .prodcontainer{
+      flex-direction: column;
+      width: 30rem;
+      height: 600px;
+     
+    }
+  
+    .productos{
+      font-size: 20px;
+      color: white;
+      width: 150px;
+      height: 150px;
+    }
+
     .footerbox {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: green;
         height: 200px;
         padding: 20px;
-        border: none;
-        box-sizing: border-box;
-        font-family: "Bebas Neue", sans-serif;
         font-size: 24px;
-        transition: color 0.3s ease;
-        color:white;
-        text-decoration: none          
       
     }
     section {
