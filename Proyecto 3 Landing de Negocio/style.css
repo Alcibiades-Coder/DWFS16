@@ -1,0 +1,349 @@
+  .montserrat-100 {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  .montserrat-700 {
+      font-family: "Montserrat", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    .anton-regular {
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .roboto-regular {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .bebas-neue-regular {
+        font-family: "Bebas Neue", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      
+    html{
+        font-family: "Montserrat", sans-serif;
+    }
+
+
+  
+  .navbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    background-color: violet;
+    height: 200px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: 110px 2px 8px;
+    
+  }
+
+  .navlogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:yellow;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    position: relative;
+    box-shadow: 5px 5px 2px 2px rgba(0,0,0,0.1);
+    width: 300px;
+    height: 120px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    margin: 1rem 0rem;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0rem;
+    cursor: pointer;
+  }
+ 
+  .navlogo:hover {
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
+  }
+
+  .navmenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: blue;
+    box-shadow: 5px 5px 2px 2px rgba(0,0,0,0.1);
+    width: 400px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    margin: 1rem 0rem;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0rem;
+    cursor: pointer;
+  }
+
+  .navmenu:hover {
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
+  }
+
+  nav a{
+    font-family: "Anton", sans-serif;
+    font-size: 24px;
+    transition: color 0.3s ease;
+    color:white;
+    text-decoration: none;
+  }
+
+  nav a:hover{
+    color: cornflowerblue;
+  }
+
+  .mainbox {
+    display: flex;
+    justify-content: space-around;
+    align-items: top;
+    background-color: orange;
+    height: 600px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;          
+  }
+
+  .firstpara {
+    display: flex;
+    flex-flow: column wrap;
+    background-color: red;
+    align-content: space-between;
+    justify-content: space-between;
+    box-shadow: 5px 5px 2px 2px rgba(0,0,0,0.1);
+    width: 38rem;
+    height: 500px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    margin: 1rem 0rem;
+    border-radius: 0.5rem;
+    
+  }
+
+  .secondpara {
+    background-color: cyan;
+    box-shadow: 5px 5px 2px 2px rgba(0,0,0,0.1);
+    align-content: center;
+    width: 38rem;
+    height: 500px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    margin: 1rem 0rem;
+    border-radius: 0.5rem;
+    
+  }
+  
+
+.fptitle{
+    display: flex;
+    justify-content: center;
+    background-color: lightcoral;
+    font-family: "Anton", sans-serif;
+    font-size: 40px;
+    transition: color 0.3s ease;
+    color:white;
+    text-decoration: none
+}
+
+.fpinfo{
+    background-color: lightcoral;
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    transition: color 0.3s ease;
+    color:white;
+    text-decoration: none
+}
+
+.fpcontainer{
+    background-color: lightcoral;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.fpbanner{
+    background-color: lightpink;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 44px;
+    transition: color 0.3s ease;
+    color:white;
+    text-decoration: none
+}
+.fpicon{
+    background-color: lightpink;
+}
+
+.fpicon a{
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    transition: color 0.3s ease;
+    color:white;
+    text-decoration: none; 
+    cursor: pointer;
+}
+
+.fpicon a:hover{
+    color: cornflowerblue;
+  }
+
+.spimage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    
+}
+
+
+.footerbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: green;
+    height: 200px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    transition: color 0.3s ease;
+    color:white;
+    text-decoration: none          
+  
+}
+section {
+    background-color: lightgreen;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 5px 5px 2px 2px rgba(0,0,0,0.1);
+    width: 300px;
+    height: 100px;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    margin: 1rem 0rem;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0rem          
+  }
+
+  section a{
+    font-family: "Anton", sans-serif;
+    font-size: 24px;
+    transition: color 0.3s ease;
+    color:white;
+    text-decoration: none;
+  }
+
+  section a:hover{
+    color: cornflowerblue;
+  }
+
+  @media screen and (max-width: 768px) {
+    .navbox {     
+        background-color: rgb(110, 110, 110);
+        height: 100px;
+    }
+
+    .navlogo {
+        font-size: 18px;
+        width: 100px;
+        height: 60px;
+    }
+    nav a{
+        font-size: 18px;
+    }
+
+    .navmenu {
+        width: 300px;
+    }
+
+    .firstpara {
+        width: 15rem;
+        height: 600px;
+        
+      }
+    
+      .secondpara {
+        width: 15rem;
+        height: 600px;
+      }
+      
+    
+    .fptitle{
+        font-size: 24px;
+    }
+    
+    .fpinfo{
+        font-size: 16px;
+    }
+    
+    .fpbanner{
+        font-size: 18px;
+    }
+    
+    .fpicon a{
+        font-size: 18px;
+    }
+    
+    .mainbox {
+        height: 700px;
+    }
+
+    .footerbox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: green;
+        height: 200px;
+        padding: 20px;
+        border: none;
+        box-sizing: border-box;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        transition: color 0.3s ease;
+        color:white;
+        text-decoration: none          
+      
+    }
+    section {
+        width: 200px;
+        height: 80px;
+        padding: 20px;
+        border: none;
+        box-sizing: border-box;
+        transition: box-shadow 0.3s ease;
+        margin: 1rem 0rem;
+        border-radius: 0.5rem;
+        padding: 0.25rem 0rem          
+    }
+    
+    section a{
+        font-size: 16px;
+        transition: color 0.3s ease;
+        color:white;
+        text-decoration: none;
+    }
+  }
+  
