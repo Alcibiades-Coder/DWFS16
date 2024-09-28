@@ -15,52 +15,44 @@
 
 ## 1. Intro
 
-Los sitios web estáticos han crecido en popularidad estos últimos años. 
-
-Existen muchas aplicaciones como [Wix](https://wix.com), [Weebly](https://weebly.com) o [Squarespace](https://squarespace.com) que han aprovechado este crecimiento debido a la gran necesidad de empresas de  mostrar sus propuestas de valor, a Internet, para presentar sus productos al mundo.
-
-Hay un segmento del mercado que necesita mucha personalización, ya sea porque más adelante incluirá un sistema de registro, un área para clientes, etc. 
-
-Es aquí donde es recomendable construirlo de manera más personalizada, sin usar servicios de terceros. 
-
-Por ello, en este proyecto, realizaremos un sitio web personalizado con HTML y CSS.
+El proyecto numero 3 corresponde al diseño y maquetación de un sitio tipo landing page utilizando HTM5 y CSS3 de forma básica para demostrar los conocimientos adquiridos en clases.
 
 ****
 
 ## 2. Demo
 
-Accede a la sección de la demo: [LINK](https://github.com/UDDBootcamp/7M_FULLSTACK_M3_PROY/tree/master/demo)
+Accede al código fuente del sitio tanto en su archivo .html como su hoja de estilos .css: 
+[LINK](https://github.com/UDDBootcamp/7M_FULLSTACK_M3_PROY/tree/master/demo)
 
-En esta, realizamos una página de aterrizaje, también conocida como `landing`, el cual el usuario al acceder a la página puede observar la interfaz y comprender de qué trata el negocio y sus productos.
+En este código, se realizó una página de aterrizaje, también conocida como `landing`, en cual el usuario al acceder a la página puede observar la interfaz y comprender de qué trata el negocio y sus productos.
 
-La idea es que uses esta demo para guiar tu proyecto y puedas realizar un proceso similar. Puedes también ocupar el código para trabajar el tuyo.
-
+El esquema del sitio corresponde a:
 ![imagen](./images/Landing.png)
 
 ****
 
-## 3. ¿Qué construirás?
+## 3. ¿Qué se construyó? 
 
-Este proyecto está enfocado en construir una página `landing` para un negocio.
+Este proyecto se enfocó en construir una página `landing` esquematizada en colores para una mejor compresión de los elementos del sitio.
 
-Se te pide que sea una sola página que permita establecer:
+Es una sola página que permita establecer:
 
-- Realizar un prototipado simple, en papel o utilizando un programa de dibujo, sobre cómo trabajarás tu sitio. Podrías utilizar [https://draw.io]() si quieres evaluar una herramienta gratuita, fácil y confiable.
+- La realización un prototipado simple, en papel o utilizando un programa de dibujo, sobre cómo trabajarás tu sitio. Podrías utilizar [https://draw.io]() si quieres evaluar una herramienta gratuita, fácil y confiable.
 - Muestra de los mensajes de negocio
 - Breve catálogo de productos
 - Incluir estas secciones en la interfaz:
-  - **a. Header**
-    Sección que involucra el logo y las áreas principales del sitio.
-  - **b. Main**
-    Sección de presentación del producto al usuario. Debe de incluir su título, descripción y un elemento para introducir tu correo.
-  - **c. Products**
-    Sección para mostrar los artículos del sitio web. O en su caso, artículos de catálogo de productos
-  - **d. Footer**
+  - **1. Header**
+    Sección que incluye el logo y la barra de navegación del sitio.
+  - **2. Main**
+    Sección de presentación del producto al usuario. Incluye su título, descripción y un elemento para introducir tu correo.
+  - **3. Products**
+    Sección para mostrar los artículos del sitio web. 3 para este caso, artículos de catálogo de productos
+  - **4. Footer**
     Sección que incluye todas las áreas del sitio, incluyendo redes sociales.
-- De manera opcional y recomendada, que la vista se adapte a móviles
+- Incluye vista que se adapta a móviles 768px de ancho o menor mediante Media Queries
 
 
-A continuación, conoce las secciones en este dibujo, en formato de prototipado simple:
+A continuación, las secciones en este dibujo, en formato de prototipado simple:
 
 ![imagen](./images/plan.png)
 
@@ -68,47 +60,46 @@ A continuación, conoce las secciones en este dibujo, en formato de prototipado 
 
 ## 4. Objetivos de aprendizaje
 
-El objetivo principal de este proyecto es desarrollar una interfaz utilizando HTML y CSS, en toda su aplicación.
+El objetivo principal de este proyecto fue desarrollar una interfaz utilizando HTML y CSS, en toda su aplicación.
 
-Aplicarás:
+Se Aplicarón:
 
 - Prototipado simple.
 - Etiquetas estándar HTML5.
-- CSS. Puedes elegir uno de los siguientes métodos:
-    a) Un archivo `index.css` en el cual se establezcan todos los estilos
-    b) Incluir los estilos directamente en el archivo `HTML`, usando la etiqueta `<style></style>`.
-    c) Usar un framework como [TailwindCSS](https://tailwindcss.com), [Bootstrap](https://getbootstrap.com/), o [Bulma](https://bulma.io/), para ejecutar clases CSS eficientemente.
+- CSS. Se eligió el siguiente método:
+    a) Un archivo `style.css` en el cual se establezcan todos los estilos
+    Nota. No se Utilizaron frameworks.
 
 
 ****
 
 ## 5. Requisitos y entregables
 
-Usa esta lista para saber los requisitos mínimos del proyecto:
+Según esta lista estos son los requisitos mínimos del proyecto:
 
 ### GENERAL
 
-- [ ] Realizarse de manera individual
+- [OK] Realizarse de manera individual
 
 ### UI
-- [ ] Desarrollar prototipado simple.
-- [ ] Aplicar en todo el sitio HTML5
-- [ ] Aplicar estilos CSS.
-- [ ] Sección `Header`
-- [ ] Sección `Main`
-- [ ] Sección `Products`
-- [ ] Sección `Footer`
-- [ ] Opcional. Responsive Web Design (Vista en móviles con uso de media queries)
+- [OK] Desarrollar prototipado simple.
+- [OK] Aplicar en todo el sitio HTML5
+- [OK] Aplicar estilos CSS.
+- [OK] Sección `Header`
+- [OK] Sección `Main`
+- [OK] Sección `Products`
+- [OK] Sección `Footer`
+- [OK] Opcional. Responsive Web Design (Vista en móviles con uso de media queries)
 
 ### CONTROL DE VERSIONES
-- [ ] Crear un repositorio en GitHub
-- [ ] Colocar descripción dentro del repositorio
+- [OK] Crear un repositorio en GitHub
+- [OK] Colocar descripción dentro del repositorio
 
 ### ENTREGA A TIEMPO
-- [ ] Entregar a tiempo el proyecto.
+- [OK] Entregar a tiempo el proyecto.
 
 ### DESPLIEGUE [OPCIONAL]
-- [ ] Crear una URL para compartir (puedes utilizar Netlify o GitHub Pages)
+- [NO REALIZADO] Crear una URL para compartir (puedes utilizar Netlify o GitHub Pages)
 
 ## 6. Criterios de evaluación
 
