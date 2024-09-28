@@ -54,7 +54,7 @@ Es una sola página que permita establecer:
 
 A continuación, las secciones en este dibujo, en formato de prototipado simple:
 
-![imagen](./images/plan.png)
+![imagen](./images/plan2.png)
 
 ****
 
