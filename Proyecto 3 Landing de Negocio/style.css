@@ -114,7 +114,7 @@
     justify-content: space-around;
     align-items: top;
     background-color: orange;
-    height: 600px;
+    height: 800px;
     padding: 20px;
     border: none;
     box-sizing: border-box;          
@@ -184,7 +184,7 @@
     justify-content: space-between;
     box-shadow: 5px 5px 2px 2px rgba(0,0,0,0.1);
     width: 38rem;
-    height: 500px;
+    height: 700px;
     padding: 20px;
     border: none;
     box-sizing: border-box;
@@ -199,7 +199,7 @@
     box-shadow: 5px 5px 2px 2px rgba(0,0,0,0.1);
     align-content: center;
     width: 38rem;
-    height: 500px;
+    height: 700px;
     padding: 20px;
     border: none;
     box-sizing: border-box;
@@ -237,13 +237,48 @@
     align-items: center;
 }
 .fpbanner{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    
     background-color: lightpink;
     font-family: "Bebas Neue", sans-serif;
-    font-size: 44px;
+    font-size: 36px;
     transition: color 0.3s ease;
     color:white;
     text-decoration: none
 }
+
+.inputemail{
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+  outline: none;
+  background-color: lightskyblue;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 5px 5px 2px 2px rgba(0,0,0,0.1);
+}
+
+.button{
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+  background: #B9DFFF;
+  color: #fff;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #eee;
+  text-shadow: none;
+}
+
+.button:hover {
+  background: #016ABC;
+  color: #fff;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #eee;
+  text-shadow: none;
+  }
+
 .fpicon{
     background-color: lightpink;
 }
@@ -293,7 +328,7 @@ section {
     justify-content: space-around;
     align-items: center;
     box-shadow: 5px 5px 2px 2px rgba(0,0,0,0.1);
-    width: 300px;
+    width: 600px;
     height: 100px;
     padding: 20px;
     border: none;
@@ -357,8 +392,19 @@ section {
     
     .fpbanner{
         font-size: 18px;
+        align-items: flex-end;
+        justify-content: flex-end;
     }
     
+    .inputemail{
+      font-size: 14px;
+    }
+    
+    .button{
+      font-size: 16px;
+    }
+    
+
     .fpicon a{
         font-size: 18px;
     }
@@ -399,6 +445,7 @@ section {
       
     }
     section {
+        flex-flow: column wrap;
         width: 200px;
         height: 80px;
         padding: 20px;
