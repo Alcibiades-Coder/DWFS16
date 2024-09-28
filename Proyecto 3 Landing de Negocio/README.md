@@ -22,7 +22,7 @@ El proyecto numero 3 corresponde al diseño y maquetación de un sitio tipo land
 ## 2. Demo
 
 Accede al código fuente del sitio tanto en su archivo .html como su hoja de estilos .css: 
-[LINK](https://github.com/UDDBootcamp/7M_FULLSTACK_M3_PROY/tree/master/demo)
+[LINK](https://github.com/Alcibiades-Coder/DWFS16/tree/main/Proyecto%203%20Landing%20de%20Negocio)
 
 En este código, se realizó una página de aterrizaje, también conocida como `landing`, en cual el usuario al acceder a la página puede observar la interfaz y comprender de qué trata el negocio y sus productos.
 
@@ -35,12 +35,12 @@ El esquema del sitio corresponde a:
 
 Este proyecto se enfocó en construir una página `landing` esquematizada en colores para una mejor compresión de los elementos del sitio.
 
-Es una sola página que permita establecer:
+Es una sola página que permite establecer:
 
-- La realización un prototipado simple, en papel o utilizando un programa de dibujo, sobre cómo trabajarás tu sitio. Podrías utilizar [https://draw.io]() si quieres evaluar una herramienta gratuita, fácil y confiable.
-- Muestra de los mensajes de negocio
-- Breve catálogo de productos
-- Incluir estas secciones en la interfaz:
+- Se realizó un prototipado simple, en Photoshop con la herramienta Section Tool.
+- Se muestran los espacios/cajas para los mensajes de negocio.
+- Espacio para breve catálogo de productos.
+- Se incluyen estas secciones en la interfaz:
   - **1. Header**
     Sección que incluye el logo y la barra de navegación del sitio.
   - **2. Main**
@@ -54,7 +54,11 @@ Es una sola página que permita establecer:
 
 A continuación, las secciones en este dibujo, en formato de prototipado simple:
 
+Esquema General del Sitio
 ![imagen](./images/plan2.png)
+
+Esquematización con Section Tool en Photoshop
+![imagen](./images/Maqueta.png)
 
 ****
 
@@ -96,7 +100,7 @@ Según esta lista estos son los requisitos mínimos del proyecto:
 - [OK] Colocar descripción dentro del repositorio
 
 ### ENTREGA A TIEMPO
-- [OK] Entregar a tiempo el proyecto.
+- [OK] Entregar a tiempo el proyecto. Entrega 28/09/2024
 
 ### DESPLIEGUE [OPCIONAL]
 - [NO REALIZADO] Crear una URL para compartir (puedes utilizar Netlify o GitHub Pages)
@@ -115,6 +119,6 @@ A partir de los requisitos, tu % estará definido de esta forma:
 
 ## 7. Entregas
 
-- **Definición de fechas.** Habla con tus coaches sobre el periodo de entregas del proyecto.
+- **Definición de fechas.** Este proyecto se entrega el 28/09/2024.
 
-- **Cumple con los requisitos y entregables.** Debes verificar que cumplas con todo lo que listamos en esta sección y tomes en cuenta el tiempo establecido para ello, ya que de esto depende que obtengas tu insignia.
+- **Cumple con los requisitos y entregables.** Se cumple con todos los requisitos, si bien no hubo un gran desempeño en cuanto a diseño y contenido esto se hizo con el fin de solo realizar una maquetación y estilos puros sin frameworks.
