@@ -53,6 +53,7 @@ Es una sola página que permite establecer:
 
 
 A continuación, las secciones en este dibujo, en formato de prototipado simple:
+
 Esquema General del Sitio
 ![imagen](./images/plan2.png)
 
