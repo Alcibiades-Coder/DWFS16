@@ -22,7 +22,7 @@ El proyecto numero 3 corresponde al diseño y maquetación de un sitio tipo land
 ## 2. Demo
 
 Accede al código fuente del sitio tanto en su archivo .html como su hoja de estilos .css: 
-[LINK](https://github.com/UDDBootcamp/7M_FULLSTACK_M3_PROY/tree/master/demo)
+[LINK](https://github.com/Alcibiades-Coder/DWFS16/tree/main/Proyecto%203%20Landing%20de%20Negocio)
 
 En este código, se realizó una página de aterrizaje, también conocida como `landing`, en cual el usuario al acceder a la página puede observar la interfaz y comprender de qué trata el negocio y sus productos.
 
