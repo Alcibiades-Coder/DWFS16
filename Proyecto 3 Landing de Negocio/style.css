@@ -122,7 +122,7 @@
 
   .prodbox {
     display: flex;
-    flex-direction: column;
+    flex-flow: column wrap;
     justify-content: space-around;
     align-items: center;
     background-color: blue;
