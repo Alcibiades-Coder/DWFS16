@@ -100,7 +100,7 @@ Según esta lista estos son los requisitos mínimos del proyecto:
 - [OK] Colocar descripción dentro del repositorio
 
 ### ENTREGA A TIEMPO
-- [OK] Entregar a tiempo el proyecto.
+- [OK] Entregar a tiempo el proyecto. Entrega 28/09/2024
 
 ### DESPLIEGUE [OPCIONAL]
 - [NO REALIZADO] Crear una URL para compartir (puedes utilizar Netlify o GitHub Pages)
@@ -119,6 +119,6 @@ A partir de los requisitos, tu % estará definido de esta forma:
 
 ## 7. Entregas
 
-- **Definición de fechas.** Habla con tus coaches sobre el periodo de entregas del proyecto.
+- **Definición de fechas.** Este proyecto se entrega el 28/09/2024.
 
-- **Cumple con los requisitos y entregables.** Debes verificar que cumplas con todo lo que listamos en esta sección y tomes en cuenta el tiempo establecido para ello, ya que de esto depende que obtengas tu insignia.
+- **Cumple con los requisitos y entregables.** Se cumple con todos los requisitos, si bien no hubo un gran desempeño en cuanto a diseño y contenido esto se hizo con el fin de solo realizar una maquetación y estilos puros sin frameworks.
