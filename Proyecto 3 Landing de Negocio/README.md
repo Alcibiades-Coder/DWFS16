@@ -35,7 +35,7 @@ En esta, realizamos una página de aterrizaje, también conocida como `landing`,
 
 La idea es que uses esta demo para guiar tu proyecto y puedas realizar un proceso similar. Puedes también ocupar el código para trabajar el tuyo.
 
-![imagen](./images/demo.png)
+![imagen](./images/landing.png)
 
 ****
 
