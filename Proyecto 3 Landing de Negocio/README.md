@@ -35,12 +35,12 @@ El esquema del sitio corresponde a:
 
 Este proyecto se enfocó en construir una página `landing` esquematizada en colores para una mejor compresión de los elementos del sitio.
 
-Es una sola página que permita establecer:
+Es una sola página que permite establecer:
 
-- La realización un prototipado simple, en papel o utilizando un programa de dibujo, sobre cómo trabajarás tu sitio. Podrías utilizar [https://draw.io]() si quieres evaluar una herramienta gratuita, fácil y confiable.
-- Muestra de los mensajes de negocio
-- Breve catálogo de productos
-- Incluir estas secciones en la interfaz:
+- Se realizó un prototipado simple, en Photoshop con la herramienta Section Tool.
+- Se muestran los espacios/cajas para los mensajes de negocio.
+- Espacio para breve catálogo de productos.
+- Se incluyen estas secciones en la interfaz:
   - **1. Header**
     Sección que incluye el logo y la barra de navegación del sitio.
   - **2. Main**
@@ -55,6 +55,7 @@ Es una sola página que permita establecer:
 A continuación, las secciones en este dibujo, en formato de prototipado simple:
 
 ![imagen](./images/plan2.png)
+![imagen](./images/Maqueta.png)
 
 ****
 
