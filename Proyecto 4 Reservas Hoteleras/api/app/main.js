@@ -70,20 +70,21 @@ const loadInitialTemplate = () => {
                 
                 <button type="submit">Enviar</button>
             </form>
+
         <h1>Listado de Reservas</h1>
             <ul id="user-list"></ul>
         
-            <h2>Buscar Reserva por ID</h2>
-        <form id="search-form">
-            <label>ID de la Reserva:</label>
-            <input type="text" id="search-id" placeholder="Ingrese el ID de la reserva" />
-            <button type="submit">Buscar</button>
-        </form>        
+        <h2>Buscar Reserva por ID</h2>
+            <form id="search-form">
+                <label>ID de la Reserva:</label>
+                <input type="text" id="search-id" placeholder="Ingrese el ID de la reserva" />
+                <button type="submit">Buscar</button>
+            </form>        
         <div id="search-results"></div>
         
         <h2>Buscar Reserva por Hotel</h2>
-        <form id="search-hotel">
-            <label>Nombre del Hotel:</label>
+            <form id="search-hotel">
+                <label>Nombre del Hotel:</label>
                     <select id="hotel-name">
                         <option value="Paraiso">Paraiso</option>
                         <option value="Niagara">Niagara</option>
@@ -91,11 +92,12 @@ const loadInitialTemplate = () => {
                         <option value="En Sueño">En Sueño</option>
                     </select>
             <button type="submit">Buscar</button>
-        </form>        
+            </form>        
         <div id="hotel-results"></div>
+        
         <h2>Buscar Reserva por Tipo de Habitación</h2>
-        <form id="search-room">
-            <label>Tipo de Habitación:</label>
+            <form id="search-room">
+                <label>Tipo de Habitación:</label>
                     <select id="roomtype-name">
                         <option value="Single">Single</option>
                         <option value="Double">Double</option>
@@ -104,44 +106,44 @@ const loadInitialTemplate = () => {
                         <option value="Master Suite">Master Suite</option>
                     </select>
             <button type="submit">Buscar</button>
-        </form>        
+            </form>        
         <div id="rooms-results"></div>
 
         <h2>Buscar Reservas por Rango de Fechas</h2>
-        <form id="search-dates">
-            <label>Fecha de Inicio:</label>
-            <input type="date" id="start-date" name="start-date" />
-            <label>Fecha de Fin:</label>
-            <input type="date" id="end-date" name="end-date" />
-        <button type="submit">Buscar</button>
-</form>
-
-<h2>Buscar Reserva por N° de Adultos</h2>
-        <form id="search-numpassengers">
-            <label>Pasajeros Adultos en la Reserva:</label>
-            <input type="text" id="search-adults" placeholder="Ingrese el N° de Adultos en la reserva" />
+            <form id="search-dates">
+                <label>Fecha de Inicio:</label>
+                <input type="date" id="start-date" name="start-date" />
+                <label>Fecha de Fin:</label>
+                <input type="date" id="end-date" name="end-date" />
             <button type="submit">Buscar</button>
-        </form>        
-        <div id="search-results"></div>
-<div id="adults-results"></div>
+            </form>
+        <div id="date-results"></div>
 
-<h2>Buscar Reserva por Estado</h2>
-        <form id="search-state">
-            <label>Tipo de Estado:</label>
+        <h2>Buscar Reserva por N° de Adultos</h2>
+            <form id="search-numpassengers">
+                <label>Pasajeros Adultos en la Reserva:</label>
+                <input type="text" id="search-adults" placeholder="Ingrese el N° de Adultos en la reserva" />
+            <button type="submit">Buscar</button>
+            </form>        
+        <div id="adults-results"></div>
+
+        <h2>Buscar Reserva por Estado</h2>
+            <form id="search-state">
+                <label>Tipo de Estado:</label>
                     <select id="state-name">
                         <option value="Creada">Creada</option>
                         <option value="Modificada">Modificada</option>
                     </select>
             <button type="submit">Buscar</button>
-        </form>        
+            </form>        
         <div id="state-results"></div>
 
         <h2>Modificar Reserva por ID</h2>
-        <form id="update-form">
-            <label>ID de la Reserva:</label>
-            <input type="text" id="update-id" placeholder="Ingrese el ID de la reserva" />
-            <button type="submit">Buscar</button>
-        </form>        
+            <form id="update-form">
+                <label>ID de la Reserva:</label>
+                <input type="text" id="update-id" placeholder="Ingrese el ID de la reserva" />
+                <button type="submit">Buscar</button>
+            </form>        
         <div id="update-results"></div>
   `;
         
@@ -448,20 +450,22 @@ const searchUsersByNumPassengers = () => {
 //// Función de Controlador para Listar las Reservas de Pasajeros por rango de fechas
 
 const searchUsersByDateRange = () => {
-   const searchHotelForm = document.getElementById('search-hotel');
-    searchHotelForm.onsubmit = async (e) => {
+   const searchDateForm = document.getElementById('search-date');
+    searchDateForm.onsubmit = async (e) => {
         e.preventDefault();
         
     // Obtiene el nombre del hotel del campo de selección
 
-        const hotelName = document.getElementById('hotel-name');
-        const hotelSelected = hotelName.value;
+        const dateCheckIn = document.getElementById('start-date');
+        const dateCheckOut = document.getElementById('start-date');
+        const checkinSelected = dateCheckIn.value;
+        const checkoutSelected = dateCheckOut.value;
 
         try {
 
     // Llamada a la API para obtener las reservas en el hotel especificado
-
-            const response = await fetch(`/users/hotel?hotel=${encodeURIComponent(hotelSelected)}`, {
+    /users/dates?start=2024-12-11&end=2024-12-14
+            const response = await fetch(`/users/dates?start=${encodeURIComponent(checkinSelectedSelected)}&end=${encodeURIComponent(checkoutSelectedSelected)}`, {
                 headers: {
                     Authorization: localStorage.getItem('jwt')
                 }
@@ -475,11 +479,11 @@ const searchUsersByDateRange = () => {
 
     // Selecciona el contenedor de resultados de búsqueda por hotel
 
-            const hotelResults = document.getElementById('hotel-results');
+            const datesResults = document.getElementById('date-results');
             
             if (users.length > 0) {
                 // Genera el HTML para mostrar los usuarios encontrados
-                hotelResults.innerHTML = users.map(user => `
+                dateResults.innerHTML = users.map(user => `
                     <div>
                         <h3>Reserva a Nombre de: ${user.name}</h3>
                         <p>ID de la Reserva: ${user._id}</p>
@@ -510,13 +514,13 @@ const searchUsersByDateRange = () => {
                 
     // Si no se encuentran resultados, muestra un mensaje
 
-                hotelResults.innerHTML = `<p>No se encontraron reservas en el hotel especificado.</p>`;
+                dateResults.innerHTML = `<p>No se encontraron reservas en el hotel especificado.</p>`;
             }
         } catch (error) {
 
     // Maneja el error y muestra un mensaje
 
-            document.getElementById('hotel-results').innerHTML = `<p>${error.message}</p>`;
+            document.getElementById('date-results').innerHTML = `<p>${error.message}</p>`;
         }
        
 
