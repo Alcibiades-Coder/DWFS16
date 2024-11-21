@@ -116,7 +116,7 @@ Usa esta lista para saber los requisitos mínimos del proyecto:
 
 ### ARQUITECTURA DE CARPETAS
 
-- [OK] Crear una arquitectura de carpetas y archivos, clara / Se creó una estructura de carpetas y archivos ya expresada más arriba.
+- [OK] Crear una arquitectura de carpetas y archivos, clara - Se creó una estructura de carpetas y archivos ya expresada más arriba.
 
 ```
 Proyecto\ 4\ Reservas\ Hoteleras
@@ -140,11 +140,13 @@ Proyecto\ 4\ Reservas\ Hoteleras
  
 ### APLICACIÓN DE SERVICIOS CRUD
 
+## CREACIÓN DE RESERVAS
+
 - [OK] Permitir la creación de reservas con los detalles necesarios (por ejemplo, hotel, tipo de habitación, número de huéspedes, fechas, etc.).
 
 ![](../Images/CreateForm.png)
 
-En el Archivo /app/main.js se crea el formulario para poder ingresar los datos de la reserva.
+En el Archivo `/app/main.js` se crea el formulario para poder ingresar los datos de la reserva.
 ```
 //// Template para Manejo de Reservas
 
@@ -226,7 +228,7 @@ const loadInitialTemplate = () => {
 }
 ```
 
-Para la recepción de los datos del formulario se crea dentro del archivo /app/main.js el siguiente listener, este a su vez previene el comportamiento por defecto del botón "Enviar" y realiza un Fetch al EndPoint /users con el metodo POST para luego limpiar el formulario y ejecutar la función para listar las reservas.
+Para la recepción de los datos del formulario se crea dentro del archivo `/app/main.js` el siguiente listener, este a su vez previene el comportamiento por defecto del botón `Enviar` y realiza un Fetch al EndPoint /users con el metodo POST para luego limpiar el formulario y ejecutar la función para listar las reservas.
 ```
 //// Listener para el Formulario de Creación de Pasajeros
 
@@ -250,12 +252,12 @@ const addFormListener = () => {
 }
 ```
 
-El EndPoint /users con el metodo POST es utilizado por Express en el archivo /api.js. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función isAuthenticated. Tambien el Endpoint hace referencia a la función controladora user.create.
+El EndPoint `/users` con el metodo POST es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.create`.
 ```
 app.post('/users', isAuthenticated, user.create);
 ```
 
-La logica de la función controladora user.create del EndPoint se encuentra en su archivo controlador /controllers/user.controller.js y es la siguiente:
+La logica de la función controladora `user.create` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
 ```
 // Controlador para Crear
 
@@ -266,7 +268,7 @@ La logica de la función controladora user.create del EndPoint se encuentra en s
     },
 ```
 
-y el schema utilizado para la logica se encuentra en el archivo de modelos /models/User.js y su estructura es:
+y el schema utilizado para la logica se encuentra en el archivo de modelos `/models/User.js` y su estructura es:
 ```
 //// Objeto Modelo de DB para Reservas
 
@@ -331,16 +333,18 @@ Como respuesta se obtiene el ID de la reserva creada y el codigo de status 201 (
 ```
 "673f39aa56c8ff457832b80b"
 ```
+
+## LISTAR RESERVAS
   
 - [OK] Permitir la visualización de la lista de reservas.
 
-En el Archivo /app/main.js se crea un contenedor para poder listar los datos de la reservas.
+En el Archivo `/app/main.js` se crea un contenedor para poder listar los datos de la reservas.
 ```
 <h1>Listado de Reservas</h1>
    <ul id="user-list"></ul>
 ```
 
-Dento del Archivo /app/main.js tambien se encuentra la función getUsers que genera una plantilla para mostrar todos las reservas creadas de la siguiente forma:
+Dento del Archivo `/app/main.js` tambien se encuentra la función getUsers que genera una plantilla para mostrar todos las reservas creadas de la siguiente forma:
 
 
 ```
@@ -384,13 +388,13 @@ const getUsers = async () => {
 }
 ```
 
-Además esta función realiza un Fetch al EndPoint /users con el metodo GET que es utilizado por Express en el archivo /api.js. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función isAuthenticated. Tambien el Endpoint hace referencia a la función controladora user.list. 
+Además esta función realiza un Fetch al EndPoint `/users` con el metodo GET que es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.list`. 
 
 ```
 app.get('/users', isAuthenticated, user.list);
 ```
 
-La logica de la función controladora user.list del EndPoint se encuentra en su archivo controlador /controllers/user.controller.js y es la siguiente:
+La logica de la función controladora `user.list` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
 ```
 // Controlador para Listar
 
@@ -400,7 +404,7 @@ La logica de la función controladora user.list del EndPoint se encuentra en su 
     },
 ```
 
-El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header a la API de la siguiente forma:
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header y el ID como parametro a la API de la siguiente forma:
 ```
 GET /users/"ID DE BUSQUEDA" HTTP/1.1
 Accept: */*
@@ -420,7 +424,7 @@ sec-ch-ua-mobile: ?0
 sec-ch-ua-platform: "Windows"ws"
 ```
 
-Como respuesta se obtiene el objeto de reservas el codigo de status 200 (OK) de la siguiente forma:
+Como respuesta se obtiene el arreglo de objetos de reservas el codigo de status 200 (OK) de la siguiente forma:
 ```
 [
     {
@@ -440,10 +444,11 @@ Como respuesta se obtiene el objeto de reservas el codigo de status 200 (OK) de 
 ]
 ```
 
+## BUSQUEDA DE RESERVAS POR ID
  
 - [OK] Permitir la obtención de la información de una reserva específica.
 
-En el Archivo /app/main.js se crea el formulario para poder ingresar el ID de una reserva y asi obtener los datos de esta.
+En el Archivo `/app/main.js` se crea el formulario para poder ingresar el ID de una reserva y asi obtener los datos de esta.
 ```
  <h2>Buscar Reserva por ID</h2>
         <form id="search-form">
@@ -457,7 +462,7 @@ Tambien se crea el contenedor que desplegará los resultados de la busqueda.
 <div id="search-results"></div>
 ```
 
-Para realizar la busqueda se crea la función searchUsers que realiza un Fetch a /users/_id y despliega los resultados en una plantilla en el contendor creado para este fin.
+Para realizar la busqueda se crea la función `searchUsers` que realiza un Fetch a `/users/:id` y despliega los resultados en una plantilla en el contendor creado para este fin.
 ```
 const searchUsers = () => {
     const searchForm = document.getElementById('search-form');
@@ -528,12 +533,12 @@ const searchUsers = () => {
 };
 
 ```
-El Fetch hace referencia al EndPoint /users/:id con el metodo GET que es utilizado por Express en el archivo /api.js. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función isAuthenticated. Tambien el Endpoint hace referencia a la función controladora user.get.
+El Fetch hace referencia al EndPoint `/users/:id` con el metodo GET que es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.get`.
 ```
 app.get('/users/:id', isAuthenticated, user.get);
 ```
 
-La logica de la función controladora user.get del EndPoint se encuentra en su archivo controlador /controllers/user.controller.js y es la siguiente:
+La logica de la función controladora `user.get` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
 ```
 // Controlador para Obtener
 
@@ -543,6 +548,27 @@ La logica de la función controladora user.get del EndPoint se encuentra en su a
         res.status(200).send(user);
     },
 ```
+
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header y el ID como parametro a la API de la siguiente forma:
+```
+GET /users/"ID DE BUSQUEDA" HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+Referer: http://127.0.0.1:3000/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"ws"
+```
+
 
 Como respuesta se obtiene el objeto de reservas con el ID buscado y el codigo de status 200 (OK) de la siguiente forma:
 ```
@@ -562,12 +588,199 @@ Como respuesta se obtiene el objeto de reservas con el ID buscado y el codigo de
 }
 ```
 
+## BUSQUEDAS POR DIFERENTES CRITERIOS
+
+- [OK] Permitir la búsqueda de reservas por hotel, rango de fechas, tipo de habitación, estado y número de huéspedes.
+
+# BUSQUEDA POR HOTEL
+
+En el Archivo `/app/main.js` se crea el formulario para poder ingresar los datos de la reserva.
+
+```
+<h2>Buscar Reserva por Hotel</h2>
+        <form id="search-hotel">
+            <label>Nombre del Hotel:</label>
+                    <select id="hotel-name">
+                        <option value="Paraiso">Paraiso</option>
+                        <option value="Niagara">Niagara</option>
+                        <option value="Cozumel">Cozumel</option>
+                        <option value="En Sueño">En Sueño</option>
+                    </select>
+            <button type="submit">Buscar</button>
+        </form>        
+```
+
+Tambien se crea el contenedor que desplegará los resultados de la busqueda.
+```
+<div id="hotel-results"></div>
+```
+
+Para realizar la busqueda se crea la función `searchUsersByHotel` que realiza un Fetch a `/users/hotel?hotel="HOTEL SELECCIONADO"` y despliega los resultados en una plantilla en el contendor creado para este fin.
+```
+//// Función de Controlador para Listar las Reservas de Pasajeros por nombre de Hotel
+
+const searchUsersByHotel = () => {
+    const searchHotelForm = document.getElementById('search-hotel');
+    searchHotelForm.onsubmit = async (e) => {
+        e.preventDefault();
+        
+    // Obtiene el nombre del hotel del campo de selección
+
+        const hotelName = document.getElementById('hotel-name');
+        const hotelSelected = hotelName.value;
+
+        try {
+
+    // Llamada a la API para obtener las reservas en el hotel especificado
+
+            const response = await fetch(`/users/hotel?hotel=${encodeURIComponent(hotelSelected)}`, {
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("No se encontraron reservas para el hotel especificado.");
+            }
+
+            const users = await response.json();
+
+    // Selecciona el contenedor de resultados de búsqueda por hotel
+
+            const hotelResults = document.getElementById('hotel-results');
+            
+            if (users.length > 0) {
+                // Genera el HTML para mostrar los usuarios encontrados
+                hotelResults.innerHTML = users.map(user => `
+                    <div>
+                        <h3>Reserva a Nombre de: ${user.name}</h3>
+                        <p>ID de la Reserva: ${user._id}</p>
+                        <p>Hotel: ${user.hotel}</p>
+                        <p>Para: ${user.numpassengers} Adultos y ${user.numkids} Niños</p>
+                        <p>Tipo de Habitación: ${user.roomtype}</p>
+                        <p>Fecha de Ingreso: ${user.checkin}</p>
+                        <p>Fecha de Salida: ${user.checkout}</p>
+                        <p>Estado Reserva: ${user.state}</p>
+                        <button data-id="${user._id}">Eliminar</button>
+                    </div>
+                `).join('');
+
+    // Función de Controlador para Borrar Reserva de Pasajero por ID
+
+                users.forEach(user => {
+                    const deleteButton = document.querySelector(`[data-id="${user._id}"]`);
+                    deleteButton.onclick = async () => {
+                        await fetch(`/users/${user._id}`, {
+                            method: 'DELETE',
+                            headers: { Authorization: localStorage.getItem('jwt') },
+                        });
+                        deleteButton.parentElement.remove();
+                        alert('Reserva eliminada con éxito');
+                    };
+                });
+            } else {
+
+    // Si no se encuentran resultados, muestra un mensaje
+
+                hotelResults.innerHTML = `<p>No se encontraron reservas en el hotel especificado.</p>`;
+            }
+        } catch (error) {
+
+    // Maneja el error y muestra un mensaje
+
+            document.getElementById('hotel-results').innerHTML = `<p>${error.message}</p>`;
+        }
+       
+
+    };
+};
+
+```
+
+El Fetch hace referencia al EndPoint `/users/hotel` con el metodo GET que es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.searchByHotel`.
+
+```
+app.get('/users/:id', isAuthenticated, user.searchByHotel);
+```
+
+La logica de la función controladora `user.searchByHotel` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
+```
+// Controlador para Buscar por Hotel
+
+    searchByHotel:  async (req, res) => {
+    const hotel = req.query.hotel; // Obtiene el nombre del hotel desde la consulta (query param)
+
+    if (!hotel) {
+        return res.status(400).json({ message: 'El nombre del hotel es obligatorio' });
+    }
+
+    try {
+        const reservations = await Users.find({ hotel: hotel });
+        if (reservations.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron reservas para el hotel especificado.' });
+        }
+        return res.status(200).json(reservations);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Hubo un error al obtener las reservas' });
+    }
+},
+```
+
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header y el HOTEL SELECCIONADO como parametros a la API de la siguiente forma:
+```
+GET /users/hotel?hotel="HOTEL SELECCIONADO" HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+Referer: http://127.0.0.1:3000/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+```
+
+Como respuesta se obtiene el arreglo de objetos de reservas con el HOTEL SELECCIONADO y el codigo de status 200 (OK) de la siguiente forma:
+```
+[
+    {
+        "_id": "673f39aa56c8ff457832b80b",
+        "name": "John Doe Doe",
+        "date": "1980-01-01T00:00:00.000Z",
+        "city": "Santiago",
+        "hotel": "Paraiso",
+        "numpassengers": 2,
+        "numkids": 0,
+        "roomtype": "Double",
+        "checkin": "2024-12-12T00:00:00.000Z",
+        "checkout": "2024-12-13T00:00:00.000Z",
+        "state": "Creada",
+        "__v": 0
+    }
+]
+```
+
+
+# BUSQUEDA POR RANGO DE FECHAS
+
+# BUSQUEDA POR TIPO DE HABITACIÓN
+
+# BUSQUEDA POR ESTADO DE LA RESERVA
+
+# BUSQUEDA POR NÚMERO DE HUESPEDES
+
   
 - [OK] Permitir la actualización de la información de una reserva.
   
 - [OK] Permitir la eliminación de una reserva.
   
-- [OK] Permitir la búsqueda de reservas por hotel, rango de fechas, tipo de habitación, estado y número de huéspedes.
   
 - [OK] Almacenar los datos de las reservas en una estructura de datos.
 
