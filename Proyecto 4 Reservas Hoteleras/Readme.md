@@ -143,6 +143,151 @@ Proyecto\ 4\ Reservas\ Hoteleras
 - [OK] Permitir la creación de reservas con los detalles necesarios (por ejemplo, hotel, tipo de habitación, número de huéspedes, fechas, etc.).
 
 ![](../Images/CreateForm.png)
+
+En el Archivo /app/main.js se crea el formulario para poder ingresar los datos de la reserva.
+```
+//// Template para Manejo de Reservas
+
+const loadInitialTemplate = () => {
+    const template = `
+        <h1>Reservas</h1>
+            <form id="user-form">
+                <div>
+                    <label>Nombre</label>
+                    <input name="name" />
+                </div>
+                <div>
+                    <label>Fecha de Nacimiento</label>
+                    <input id="nacimiento" name="date" type="date" />
+                </div>
+                <div>
+                    <label>Ciudad</label>
+                    <input name="city" type="text" />
+                </div>
+                <div>
+                    <label>Hotel</label>
+                    <select name="hotel">
+                        <option value="Paraiso">Paraiso</option>
+                        <option value="Niagara">Niagara</option>
+                        <option value="Cozumel">Cozumel</option>
+                        <option value="En Sueño">En Sueño</option>
+                    </select>
+                </div>
+                <div>
+                    <label>N° de Adultos</label>
+                    <select name="numpassengers">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div>
+                    <label>N° de Niños</label>
+                    <select name="numkids">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Tipo de Habitación</label>
+                    <select name="roomtype">
+                        <option value="Single">Single (1 Queen size bed)</option>
+                        <option value="Double">Double (1 Queen size bed-2 Single size bed)</option>
+                        <option value="Double Queen">Double Queens (2 Queen size bed)</option>
+                        <option value="Double Kings">Double Kings (2 King size bed)</option>
+                        <option value="Master Suite">Master Suite (1 Super King size bed-2 Queen size bed)</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Fecha de Ingreso</label>
+                    <input name="checkin" type="date" />
+                </div>
+                <div>
+                    <label>Fecha de Salida</label>
+                    <input name="checkout" type="date" />
+                </div>
+                <div>
+                    <label>Estado de la Reserva</label>
+                    <input type="text" name="state" value="Creada" readonly>
+                </div>
+                
+                <button type="submit">Enviar</button>
+            </form>
+...
+`;
+        
+    const body = document.getElementsByTagName('body')[0];
+    body.innerHTML = template;
+}
+```
+
+Para la recepción de los datos del formulario se crea dentro del archivo /app/main.js el siguiente listener, este a su vez previene el comportamiento por defecto del botón "Enviar" y realiza un Fetch al EndPoint /users con el metodo POST para luego limpiar el formulario y ejecutar la función para listar las reservas.
+```
+//// Listener para el Formulario de Creación de Pasajeros
+
+const addFormListener = () => {
+    const userForm = document.getElementById('user-form');
+    userForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(userForm);
+        const data = Object.fromEntries(formData.entries())
+        await fetch('/users', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.getItem('jwt'),
+            }
+        })
+        userForm.reset();
+        getUsers();
+    }
+}
+```
+
+El EndPoint /users con el metodo POST es utilizado por Express en el archivo /api.js. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función isAuthenticated.
+```
+app.post('/users', isAuthenticated, user.create);
+```
+
+La logica del EndPoint se encuentra en su archivo controlador /controllers/user.controller.js y es la siguiente:
+```
+// Controlador para Crear
+
+    create: async (req, res) =>{
+        const user = new Users(req.body);
+        const savedUser = await user.save();
+        res.status(201).send(savedUser._id);
+    },
+```
+
+y el schema utilizado para la logica se encuentra en el archivo de modelos /models/User.js y su estructura es:
+```
+//// Objeto Modelo de DB para Reservas
+
+const Users = mongoose.model('User', {
+    idsearch: { type: String, required: false, minLength: 3},
+    name: { type: String, required: true, minLength: 3},
+    date: { type: Date, required: true, minLength: 3},
+    city: { type: String, required: true, minLength: 3},
+    hotel: { type: String, required: true, minLength: 1},
+    numpassengers: { type: Number, required: true, minLength: 1},
+    numkids: { type: Number, required: true, minLength: 1},
+    roomtype: { type: String, required: true, minLength: 3},
+    checkin: { type: Date, required: true, minLength: 3},
+    checkout: { type: Date, required: true, minLength: 3},
+    state: { type: String, required: true, minLength: 3},
+})
+
+module.exports = Users;
+```
+
+
   
 - [OK] Permitir la visualización de la lista de reservas.
   
