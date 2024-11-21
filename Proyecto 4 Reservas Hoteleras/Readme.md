@@ -250,12 +250,12 @@ const addFormListener = () => {
 }
 ```
 
-El EndPoint /users con el metodo POST es utilizado por Express en el archivo /api.js. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función isAuthenticated.
+El EndPoint /users con el metodo POST es utilizado por Express en el archivo /api.js. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función isAuthenticated. Tambien el Endpoint hace referencia a la función controladora user.create.
 ```
 app.post('/users', isAuthenticated, user.create);
 ```
 
-La logica del EndPoint se encuentra en su archivo controlador /controllers/user.controller.js y es la siguiente:
+La logica de la función controladora user.create del EndPoint se encuentra en su archivo controlador /controllers/user.controller.js y es la siguiente:
 ```
 // Controlador para Crear
 
@@ -287,11 +287,281 @@ const Users = mongoose.model('User', {
 module.exports = Users;
 ```
 
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header a la API de la siguiente forma:
+```
+POST /users HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Content-Length: 191
+Content-Type: application/json
+Host: 127.0.0.1:3000
+Origin: http://127.0.0.1:3000
+Referer: http://127.0.0.1:3000/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
 
+```
+
+El Fetch realizado por el controlador adjunta los datos del formulario al Body dentro del Payload en la API de la siguiente forma:
+```
+{
+  "name": "John Doe",
+  "date": "1980-01-01",
+  "city": "Santiago",
+  "hotel": "Paraiso",
+  "numpassengers": "2",
+  "numkids": "0",
+  "roomtype": "Double",
+  "checkin": "2024-12-12",
+  "checkout": "2024-12-13",
+  "state": "Creada"
+}
+```
+
+Como respuesta se obtiene el ID de la reserva creada y el codigo de status 201 (Created) de la siguiente forma:
+```
+"673f39aa56c8ff457832b80b"
+```
   
 - [OK] Permitir la visualización de la lista de reservas.
-  
+
+En el Archivo /app/main.js se crea un contenedor para poder listar los datos de la reservas.
+```
+<h1>Listado de Reservas</h1>
+   <ul id="user-list"></ul>
+```
+
+Dento del Archivo /app/main.js tambien se encuentra la función getUsers que genera una plantilla para mostrar todos las reservas creadas de la siguiente forma:
+
+
+```
+const getUsers = async () => {
+    const response = await fetch('/users', {
+        headers: {
+            Authorization: localStorage.getItem('jwt')
+        }
+    });
+    const users = await response.json();
+    const template = user => `
+        <li>
+           <div><p>Reserva a Nombre de: ${user.name} 
+           <p>Id de la Reserva: ${user._id}
+           <p>En el Hotel: ${user.hotel} 
+           <p>Para: ${user.numpassengers} Adultos y ${user.numkids} Niños 
+           <p>Tipo de Habitación: ${user.roomtype} 
+           <p>Fecha de Ingreso: ${user.checkin} 
+           <p>Fecha de Salida: ${user.checkout}
+           <p>Estado Reserva: ${user.state}</p> 
+           <p></div><button data-id="${user._id}">Eliminar</button>
+        </li>
+    `
+    // Controlador para Borrar Reserva de Pasajero por ID
+
+    const userList = document.getElementById('user-list');
+    userList.innerHTML = users.map(user => template(user)).join('');
+    users.forEach(user => {
+        const userNode = document.querySelector(`[data-id="${user._id}"]`)
+        userNode.onclick = async e => {
+            await fetch(`/users/${user._id}`, {
+               method: 'DELETE', 
+               headers: {
+                Authorization: localStorage.getItem('jwt'),
+               }
+            })
+            userNode.parentNode.remove()
+            alert('Eliminado con Exito!')
+        }
+    })
+}
+```
+
+Además esta función realiza un Fetch al EndPoint /users con el metodo GET que es utilizado por Express en el archivo /api.js. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función isAuthenticated. Tambien el Endpoint hace referencia a la función controladora user.list. 
+
+```
+app.get('/users', isAuthenticated, user.list);
+```
+
+La logica de la función controladora user.list del EndPoint se encuentra en su archivo controlador /controllers/user.controller.js y es la siguiente:
+```
+// Controlador para Listar
+
+    list: async (req, res) =>{
+        const users = await Users.find();
+        res.status(200).send(users);
+    },
+```
+
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header a la API de la siguiente forma:
+```
+GET /users/"ID DE BUSQUEDA" HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+Referer: http://127.0.0.1:3000/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"ws"
+```
+
+Como respuesta se obtiene el objeto de reservas el codigo de status 200 (OK) de la siguiente forma:
+```
+[
+    {
+        "_id": "673f39aa56c8ff457832b80b",
+        "name": "John Doe Doe",
+        "date": "1980-01-01T00:00:00.000Z",
+        "city": "Santiago",
+        "hotel": "Paraiso",
+        "numpassengers": 2,
+        "numkids": 0,
+        "roomtype": "Double",
+        "checkin": "2024-12-12T00:00:00.000Z",
+        "checkout": "2024-12-13T00:00:00.000Z",
+        "state": "Creada",
+        "__v": 0
+    }
+]
+```
+
+ 
 - [OK] Permitir la obtención de la información de una reserva específica.
+
+En el Archivo /app/main.js se crea el formulario para poder ingresar el ID de una reserva y asi obtener los datos de esta.
+```
+ <h2>Buscar Reserva por ID</h2>
+        <form id="search-form">
+            <label>ID de la Reserva:</label>
+            <input type="text" id="search-id" placeholder="Ingrese el ID de la reserva" />
+            <button type="submit">Buscar</button>
+        </form>        
+```
+Tambien se crea el contenedor que desplegará los resultados de la busqueda.
+```
+<div id="search-results"></div>
+```
+
+Para realizar la busqueda se crea la función searchUsers que realiza un Fetch a /users/_id y despliega los resultados en una plantilla en el contendor creado para este fin.
+```
+const searchUsers = () => {
+    const searchForm = document.getElementById('search-form');
+    searchForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const searchId = document.getElementById('search-id').value.trim();
+
+        if (!searchId) {
+            alert("Por favor, ingrese un ID válido.");
+            return;
+        }
+
+        try {
+
+    // Llamada a la API para obtener el usuario por su ID
+
+            const response = await fetch(`/users/${searchId}`, {
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("No se encontró ninguna reserva con el ID especificado.");
+            }
+
+            const user = await response.json();
+
+    // Selecciona el contenedor de resultados de búsqueda
+
+            const searchResults = document.getElementById('search-results');
+            
+    // Muestra el usuario si se encuentra
+
+            searchResults.innerHTML = `
+                <div>
+                    <h3>Resultado de la búsqueda</h3>
+                    <p>Reserva a Nombre de: ${user.name}</p>
+                    <p>ID de la Reserva: ${user._id}</p>
+                    <p>En el Hotel: ${user.hotel}</p>
+                    <p>Para: ${user.numpassengers} Adultos y ${user.numkids} Niños</p>
+                    <p>Tipo de Habitación: ${user.roomtype}</p>
+                    <p>Fecha de Ingreso: ${user.checkin}</p>
+                    <p>Fecha de Salida: ${user.checkout}</p>
+                    <p>Estado Reserva: ${user.state}</p>
+                    <button data-id="${user._id}">Eliminar</button>
+                </div>
+            `;
+
+//// Función de Controlador para Borrar Reserva de Pasajero por ID
+
+            const deleteButton = searchResults.querySelector(`[data-id="${user._id}"]`);
+            deleteButton.onclick = async () => {
+                await fetch(`/users/${user._id}`, {
+                    method: 'DELETE',
+                    headers: { Authorization: localStorage.getItem('jwt') },
+                });
+                searchResults.innerHTML = '';
+                alert('Eliminado con éxito!');
+            };
+        } catch (error) {
+
+    // Muestra un mensaje si no se encuentra el usuario o hay un error
+
+            document.getElementById('search-results').innerHTML = `<p>${error.message}</p>`;
+        }
+    };
+};
+
+```
+El Fetch hace referencia al EndPoint /users/:id con el metodo GET que es utilizado por Express en el archivo /api.js. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función isAuthenticated. Tambien el Endpoint hace referencia a la función controladora user.get.
+```
+app.get('/users/:id', isAuthenticated, user.get);
+```
+
+La logica de la función controladora user.get del EndPoint se encuentra en su archivo controlador /controllers/user.controller.js y es la siguiente:
+```
+// Controlador para Obtener
+
+    get: async (req, res)=>{
+        const { id } =req.params;
+        const user = await Users.findOne({ _id: id});
+        res.status(200).send(user);
+    },
+```
+
+Como respuesta se obtiene el objeto de reservas con el ID buscado y el codigo de status 200 (OK) de la siguiente forma:
+```
+{
+    "_id": "673f39aa56c8ff457832b80b",
+    "name": "John Doe Doe",
+    "date": "1980-01-01T00:00:00.000Z",
+    "city": "Santiago",
+    "hotel": "Paraiso",
+    "numpassengers": 2,
+    "numkids": 0,
+    "roomtype": "Double",
+    "checkin": "2024-12-12T00:00:00.000Z",
+    "checkout": "2024-12-13T00:00:00.000Z",
+    "state": "Creada",
+    "__v": 0
+}
+```
+
   
 - [OK] Permitir la actualización de la información de una reserva.
   
