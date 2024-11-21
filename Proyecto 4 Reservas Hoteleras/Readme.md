@@ -142,7 +142,7 @@ Proyecto\ 4\ Reservas\ Hoteleras
 
 - [OK] Permitir la creación de reservas con los detalles necesarios (por ejemplo, hotel, tipo de habitación, número de huéspedes, fechas, etc.).
 
-
+![](../Images/CreateForm.png)
   
 - [OK] Permitir la visualización de la lista de reservas.
   
