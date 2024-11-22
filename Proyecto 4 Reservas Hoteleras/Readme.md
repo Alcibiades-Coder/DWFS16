@@ -110,7 +110,306 @@ Proyecto\ 4\ Reservas\ Hoteleras
 │    └─ package.json
 └─ README.md (ESTE ARCHIVO)
 ```
- 
+### APLICACIÓN DE SERVICIOS LOGIN/REGISTER
+
+En el archivo `/app/main.js` se crean 2 funciones para crear las plantillas para login (`loadLoginTemplate`) y registro (`loadRegisterTemplate`) además de sus respectivos listeners (`a` y `a`)
+
+TEMPLATES
+```
+//// Template para Login
+
+const loadLoginTemplate = () => {
+    const template = `
+        <h1>Login</h1>
+            <form id="login-form">
+                <div>
+                    <label>Correo</label>
+                    <input name="email" />
+                </div>
+                <div>
+                    <label>Contraseña</label>
+                    <input type="password" name="password" />
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+            <a href="#" id="register">Registrarse</a>
+        <div id="error"></div>
+    `;
+
+    const body = document.getElementsByTagName('body')[0];
+    body.innerHTML = template
+}
+```
+```
+//// Template para Registro
+
+const loadRegisterTemplate = () => {
+    const template = `
+        <h1>Registro</h1>
+            <form id="register-form">
+                <div>
+                    <label>Correo</label>
+                    <input name="email" />
+                </div>
+                <div>
+                    <label>Contraseña</label>
+                    <input type="password" name="password" />
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+            <a href="#" id="login">Iniciar Sesión</a>
+        <div id="error"></div>
+        `;
+        const body = document.getElementsByTagName('body')[0];
+        body.innerHTML = template
+}
+
+```
+LISTENERS DE REDIRECCIÓN
+```
+//// Listener para ir al Formulario de Login
+
+const gotoLoginListener = () => {
+    const gotoLogin = document.getElementById('login')
+    gotoLogin.onclick = (e) => {
+        e.preventDefault()
+        loginPage();
+    }
+}
+```
+```
+const gotoRegisterListener = () => {
+    const gotoRegister = document.getElementById('register')
+    gotoRegister.onclick = (e) => {
+        e.preventDefault()
+        registerPage();
+    }
+}
+```
+
+LISTENERS DE FORMULARIOS
+```
+//// Listener del Formulario de Login
+
+const addLoginListener = () => {
+    const loginForm = document.getElementById('login-form')
+    loginForm.onsubmit = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(loginForm)
+        const data = Object.fromEntries(formData.entries())
+
+        const response = await fetch('/login', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        const responseData = await response.text()
+        if (response.status >= 300) {
+            const errorNode = document.getElementById('error')
+            errorNode.innerHTML = responseData
+        } else {
+            localStorage.setItem('jwt', `Bearer ${responseData}`)
+            bookingPage()
+        }
+    }
+}
+```
+
+```
+//// Listener del Formulario de Register
+
+const addRegisterListener = () => {
+    const registerForm = document.getElementById('register-form')
+    registerForm.onsubmit = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(registerForm)
+        const data = Object.fromEntries(formData.entries())
+
+        const response = await fetch('/register', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        const responseData = await response.text()
+        if (response.status >= 300) {
+            const errorNode = document.getElementById('error')
+            errorNode.innerHTML = responseData
+        } else {
+           alert(responseData);
+           
+            loginPage()
+           
+            
+        }
+    }
+}
+```
+Además se crea una función para almacenar el JSON Web Token en el `localStorage`
+```
+//// Funcion para Almacenar el Login en LocalStorage
+
+const checkLogin = () =>
+    localStorage.getItem('jwt');
+```
+
+En cuanto a los Fetch los Listener de Formularios serían:
+
+-Login
+
+```
+ const response = await fetch('/login', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+```
+
+-Register
+
+```
+ const response = await fetch('/register', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+```
+
+Ambos Fetch hacen refrencias a los EndPoints `/login` y `/register` la ruta utilizada por Express para estos EndPoints en el archivo `api.js`
+
+```
+// Endpoints de Login y Registro  
+
+app.post('/login', Authenticate.login);
+app.post('/register', Authenticate.register);
+```
+
+Y las funciones controladoras `login` y `register `fueron declaradas en el objeto controlador `Auntenthicate` en el archivo `/controllers/auth-controller.js` que además de tener la logica de las funciones controladoras tambien posee la logica de encriptación mediante llave y algoritmo `validateJwt`, la firma del Token `signToken`, la busqueda y asignación de usuario para autenticación `findAndAssingUser` y el ruteo en Express `isAuthenticated` para que solo los usuarios autenticados puedan ingresar a otros sitios o API´s. 
+
+```
+////Importaciones
+
+const express = require('express');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { expressjwt:expressJwt} = require('express-jwt');
+require('dotenv').config();
+const Auths = require('../models/Auth')
+
+//// Palabra secreta para encriptación
+
+const secret = process.env.SECRET;
+
+//// Encriptación con llave y algoritmo
+
+const validateJwt = expressJwt({ secret, algorithms: ['HS256'] });
+
+////Token firmado
+
+const signToken = _id => jwt.sign({ _id }, secret);
+
+//// Función que busca y asigna un usuario para Autenticación
+
+const findAndAssingUser = async (req, res, next) => {
+    try {
+        const user = await Auths.findById(req.auth._id);
+        if (!user){
+            return res.status(401).end();
+        }
+        req.user = user;
+        next();
+    }catch (e) {
+        next (e)
+    }
+    
+}
+
+//// Ruteo para Express
+
+const isAuthenticated = express.Router().use(validateJwt, findAndAssingUser);
+
+//// Objeto Controlador para Manejo de Autenticación
+
+const Authenticate = {
+
+////Controladores Especificos
+
+
+////Controlador de Login
+
+    login: async (req, res) => {
+        const { body } = req;
+        try {
+            const user = await Auths.findOne({ email: body.email });
+            if (!user){
+                res.status(401).send('Usuario y/o contraseña invalida');
+            } else {
+              const isMatch = await bcrypt.compare(body.password, user.password);
+              if (isMatch) {
+                const signed = signToken(user._id)
+                res.status(200).send(signed)
+              } else {
+                res.status(401).send('Usuario y/o contraseña invalida');
+              }
+            }
+            
+        }catch(e) {
+            res.send(e.message)
+        }
+    },
+
+////Controlador de Register
+
+    register: async (req, res) => {
+        const {body } = req;
+        try{
+            const isAuth = await Auths.findOne({ email: body.email})
+            if(isAuth){
+                res.send('Usuario ya existe!')
+            } else {
+                const salt = await bcrypt.genSalt();
+                const hashed = await bcrypt.hash(body.password, salt);
+                const user = await Auths.create({email: body.email, password: hashed, salt});
+                const signed = signToken(user._id);
+                res.send(signed)
+            }
+        } catch (err) {
+            res.status(500).send(err.message);
+        }
+    },
+
+}
+
+module.exports = { Authenticate, isAuthenticated }
+
+```
+
+El schema para almacenar los datos de los usuario para login y resgiter se estructuran de la siguiente forma:
+
+```
+ //// Importaciones
+
+const mongoose = require('mongoose');
+
+//// Objeto Modelo de DB para Autenticación
+
+const Auths = mongoose.model('Auth', {
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    salt: { type: String, required: true },
+});
+
+module.exports = Auths;
+
+```
 ### APLICACIÓN DE SERVICIOS CRUD
 
 + ### A.- CREACIÓN DE RESERVAS
