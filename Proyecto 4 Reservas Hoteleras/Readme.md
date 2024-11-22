@@ -344,7 +344,7 @@ En el Archivo `/app/main.js` se crea un contenedor para poder listar los datos d
    <ul id="user-list"></ul>
 ```
 
-Dento del Archivo `/app/main.js` tambien se encuentra la función getUsers que genera una plantilla para mostrar todos las reservas creadas de la siguiente forma:
+Dento del Archivo `/app/main.js` tambien se encuentra la función `getUsers` que genera una plantilla para mostrar todos las reservas creadas de la siguiente forma:
 
 
 ```
@@ -767,7 +767,7 @@ Como respuesta se obtiene el arreglo de objetos de reservas con el HOTEL SELECCI
 ]
 ```
 
-### BUSQUEDA POR RANGO DE FECHAS
+* ### D.2.- BUSQUEDA POR RANGO DE FECHAS
 
 En el Archivo `/app/main.js` se crea el formulario para poder ingresar rango de fechas de las reservas.
 
@@ -948,7 +948,7 @@ Como respuesta se obtiene el arreglo de objetos de reservas con el rango de fech
 ]
 ```
 
-### BUSQUEDA POR TIPO DE HABITACIÓN
+* ### D.3.- BUSQUEDA POR TIPO DE HABITACIÓN
 
 En el Archivo `/app/main.js` se crea el formulario para poder ingresar el tipo de habitación de la reserva.
 
@@ -1130,7 +1130,7 @@ Como respuesta se obtiene el arreglo de objetos de reservas con el rango de fech
 ]
 ```
 
-### BUSQUEDA POR ESTADO DE LA RESERVA
+* ### D.4.- BUSQUEDA POR ESTADO DE LA RESERVA
 
 En el Archivo `/app/main.js` se crea el formulario para poder ingresar el estado de las reservas.
 
@@ -1306,7 +1306,7 @@ Como respuesta se obtiene el arreglo de objetos de reservas con el estado selecc
     }
 ]
 ```
-### BUSQUEDA POR NÚMERO DE HUESPEDES
+* ### D.5.- BUSQUEDA POR NÚMERO DE HUESPEDES
 
 En el Archivo `/app/main.js` se crea el formulario para poder ingresar el número de adutlos de las reservas.
 
@@ -1482,29 +1482,364 @@ Como respuesta se obtiene el arreglo de objetos de reservas con el estado selecc
     }
 ]
 ```
-  
+
++ ### E.- ACTUALIZACIÓN DE RESERVA
+    
 - [OK] Permitir la actualización de la información de una reserva.
+
+
+En el Archivo `/app/main.js` se crea el formulario para poder ingresar el ID de la reserva a actualizar.
+
+```
+       <h2>Modificar Reserva por ID</h2>
+            <form id="update-form">
+                <label>ID de la Reserva:</label>
+                <input type="text" id="update-id" placeholder="Ingrese el ID de la reserva" />
+                <button type="submit">Buscar</button>
+            </form>                
+```
+
+Tambien se crea el contenedor que desplegará los resultados de la busqueda.
+```
+<div id="update-results"></div>
+```
+
+Para realizar la busqueda se crea la función `updateUsersById` que realiza un Fetch a `/users/"ID DE LA RESERVA"` con metodo GET y despliega los resultados en un formulario con los datos precargados en el contendor creado para este fin. Una vez completado el formulario se envía donde se realiza nuevamente un Fetch a `/users/"ID DE LA RESERVA"` pero está vez con el metodo PUT.
+```
+//// Función de Controlador para Actualizar las Reservas de Pasajeros por ID
+
+const updateUsersById = () => {
+    const updateUserForm = document.getElementById('update-form');
+    updateUserForm.onsubmit = async (e) => {
+        e.preventDefault();
+        
+        const updateId = document.getElementById('update-id').value.trim();
+
+        try {
+
+    // Llama a la API para obtener los datos del usuario
+
+const response = await fetch(`/users/${updateId}`, {
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("No se encontraron reservas para el estado especificado.");
+            }
+
+            const user = await response.json();
+
+    // Muestra el formulario pre-rellenado con los datos del usuario
+
+            const updateResults = document.getElementById('update-results');
+            const formatDate = user.date.split("T")[0];
+            const formatCheckin = user.checkin.split("T")[0];
+            const formatCheckout = user.checkout.split("T")[0];
+            
+            
+            updateResults.innerHTML = `
+                <div>
+                   <form id="update-user-form">
+                        <div>
+                            <label>Nombre</label>
+                            <input name="name" value="${user.name}" />
+                        </div>
+                        <div>
+                            <label>Fecha de Nacimiento</label>
+                            <input name="date" type="date" value="${formatDate}" />
+                        </div>
+                        <div>
+                            <label>Ciudad</label>
+                            <input name="city" type="text" value="${user.city}" />
+                        </div>
+                        <div>
+                            <label>Hotel</label>
+                            <select name="hotel">
+                                <option value="Paraiso" ${user.hotel === "Paraiso" ? "selected" : ""}>Paraiso</option>
+                                <option value="Niagara" ${user.hotel === "Niagara" ? "selected" : ""}>Niagara</option>
+                                <option value="Cozumel" ${user.hotel === "Cozumel" ? "selected" : ""}>Cozumel</option>
+                                <option value="En Sueño" ${user.hotel === "En Sueño" ? "selected" : ""}>En Sueño</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>N° de Adultos</label>
+                            <select name="numpassengers">
+                                <option value="1" ${user.numpassengers === 1 ? "selected" : ""}>1</option>
+                                <option value="2" ${user.numpassengers === 2 ? "selected" : ""}>2</option>
+                                <option value="3" ${user.numpassengers === 3 ? "selected" : ""}>3</option>
+                                <option value="4" ${user.numpassengers === 4 ? "selected" : ""}>4</option>
+                                <option value="5" ${user.numpassengers === 5 ? "selected" : ""}>5</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>N° de Niños</label>
+                            <select name="numkids">
+                                <option value="0" ${user.numkids === 0 ? "selected" : ""}>0</option>
+                                <option value="1" ${user.numkids === 1 ? "selected" : ""}>1</option>
+                                <option value="2" ${user.numkids === 2 ? "selected" : ""}>2</option>
+                                <option value="3" ${user.numkids === 3 ? "selected" : ""}>3</option>
+                                <option value="4" ${user.numkids === 4 ? "selected" : ""}>4</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Tipo de Habitación</label>
+                            <select name="roomtype">
+                                <option value="Single" ${user.roomtype === "Single" ? "selected" : ""}>Single</option>
+                                <option value="Double" ${user.roomtype === "Double" ? "selected" : ""}>Double</option>
+                                <option value="Double Queen" ${user.roomtype === "Double Queen" ? "selected" : ""}>Double Queen</option>
+                                <option value="Double Kings" ${user.roomtype === "Double Kings" ? "selected" : ""}>Double Kings</option>
+                                <option value="Master Suite" ${user.roomtype === "Master Suite" ? "selected" : ""}>Master Suite</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Fecha de Ingreso</label>
+                            <input name="checkin" type="date" value="${formatCheckin}" />
+                        </div>
+                        <div>
+                            <label>Fecha de Salida</label>
+                            <input name="checkout" type="date" value="${formatCheckout}" />
+                        </div>
+                        <div>
+                            <label>Estado de la Reserva</label>
+                            <input type="text" name="state" value="Modificada" readonly>
+                        </div>
+            
+                        <button type="submit">Actualizar</button>
+                    </form>
+                </div>
+            `;
+
+    // Evento para enviar el formulario de actualización
+
+            const updateUserForm = document.getElementById('update-user-form');
+            updateUserForm.onsubmit = async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(updateUserForm);
+                const data = Object.fromEntries(formData.entries());
+
+    // Realiza la solicitud PUT para actualizar el usuario
+                
+                const updateResponse = await fetch(`/users/${updateId}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('jwt')
+                    }
+                });
+
+                if (updateResponse.ok) {
+                    alert("Usuario actualizado con éxito.");
+                    updateResults.innerHTML = ""; 
+                } else {
+                    alert("Error al actualizar el usuario.");
+                }
+            };
+        } catch (error) {
+            document.getElementById('update-results').innerHTML = `<p>${error.message}</p>`;
+        }
+    };
+};
+```
+
+Los Fetchs hacen referencia a los EndPoint `/users/:id` con el metodo GET y el metodo PUT que es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.searchByNumPassengers`.
+
+```
+app.put('/users/:id', isAuthenticated, user.update);
+```
+
+La logica de la función controladora `user.update` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
+```
+// Controlador para Actualizar
+
+    update: async (req, res) =>{
+        const { id } = req.params;
+        const user = await Users.findOne({ _id: id});
+        Object.assign(user, req.body);
+        await user.save();
+        res.sendStatus(204);
+    },
+```
+
+El Fetch con metodo GET realizado por el controlador adjunta el JSON Web Token dentro del Header y el HOTEL SELECCIONADO como parametros a la API de la siguiente forma:
+```
+GET /users/"ID DE LA RESERVA" HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+Referer: http://127.0.0.1:3000/?start-date=2024-12-12&end-date=2024-12-13
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+```
+
+Como respuesta se obtiene el objeto de reservas con el ID y el codigo de status 304 (Not Modified) de la siguiente forma:
+```
+{
+    "_id": "673f39aa56c8ff457832b80b",
+    "name": "John Doe Doe",
+    "date": "1980-01-01T00:00:00.000Z",
+    "city": "Santiago",
+    "hotel": "Paraiso",
+    "numpassengers": 2,
+    "numkids": 0,
+    "roomtype": "Double",
+    "checkin": "2024-12-12T00:00:00.000Z",
+    "checkout": "2024-12-13T00:00:00.000Z",
+    "state": "Creada",
+    "__v": 0
+}
+```  
+
+El Fetch con metodo PUT realizado por el controlador adjunta el JSON Web Token dentro del Header y el HOTEL SELECCIONADO como parametros a la API de la siguiente forma:
+```
+PUT /users/673f39aa56c8ff457832b80b HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+Referer: http://127.0.0.1:3000/?start-date=2024-12-12&end-date=2024-12-13
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+```
+
+Como Payload se agrega la data de la siguiente forma:
+```
+{
+    "_id": "673f39aa56c8ff457832b80b",
+    "name": "John Doe Doe",
+    "date": "1980-01-01T00:00:00.000Z",
+    "city": "Santiago",
+    "hotel": "Paraiso",
+    "numpassengers": 2,
+    "numkids": 0,
+    "roomtype": "Double",
+    "checkin": "2024-12-12T00:00:00.000Z",
+    "checkout": "2024-12-13T00:00:00.000Z",
+    "state": "Modificada",
+    "__v": 0
+}
+```  
+
+
++ ### F.- ELIMINACIÓN DE RESERVA
   
 - [OK] Permitir la eliminación de una reserva.
-  
-  
+
+Dentro de todas las funciones anteriormente mencionadas, excepto la creación de reservas y la actualizacion de reservas, se crea una función que a continuación del despliegue de resultados incopora un botón "Eliminar" que realiza un Fetch a `/users/:id` y ejecuta el siguiente codigo expresado en `/app/main.js`:
+```  
+//// Función de Controlador para Borrar Reserva de Pasajero por ID          
+
+                users.forEach(user => {
+                    const deleteButton = document.querySelector(`[data-id="${user._id}"]`);
+                    deleteButton.onclick = async () => {
+                        await fetch(`/users/${user._id}`, {
+                            method: 'DELETE',
+                            headers: { Authorization: localStorage.getItem('jwt') },
+                        });
+                        deleteButton.parentElement.remove();
+                        alert('Reserva eliminada con éxito');
+                    };
+                });
+            } else {
+
+    // Si no se encuentran resultados, muestra un mensaje
+                
+                stateResults.innerHTML = `<p>No se encontraron reservas en el hotel especificado.</p>`;
+            }
+        } catch (error) {
+
+    // Maneja el error y muestra un mensaje
+
+            document.getElementById('state-results').innerHTML = `<p>${error.message}</p>`;
+        }
+       
+
+    };
+};
+```  
+
+El Fetch hace referencia al EndPoint `/users/:id` con el metodo DELETE que es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.destroy`.
+
+```
+app.delete('/users/:id', isAuthenticated, user.destroy);
+```
+
+La logica de la función controladora `user.destroy` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
+```
+// Controlador para Borrar
+
+    destroy: async (req, res) =>{
+        const { id } = req.params;
+        const user = await Users.findOne({ _id: id});
+        if (user){
+            await user.deleteOne({_id: id})
+        }
+        res.sendStatus(204);
+    },
+
+```
+
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header y el HOTEL SELECCIONADO como parametros a la API de la siguiente forma:
+```
+DELETE /users/673f39aa56c8ff457832b80b HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+Referer: http://127.0.0.1:3000/?start-date=2024-12-12&end-date=2024-12-13
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+```
+
+Como respuesta se obtiene el codigo de status 204 (No Content) de la siguiente forma:
+
++ ### F.- ALMACENAMIENTO DE DATOS DE RESERVAS
+    
 - [OK] Almacenar los datos de las reservas en una estructura de datos.
 
 
-### CONTROL DE VERSIONES
++ ### G.- CONTROL DE VERSIONES
 - [ ] Crear un repositorio en GitHub y subir el proyecto al mismo.
 
 
-### ENTREGA A TIEMPO
++ ### H.- ACTUALIZACIÓN DE RESERVA ENTREGA A TIEMPO
 - [ ] Entregar a tiempo el proyecto.
 
 
-### DOCUMENTACIÓN DE LA API (OPCIONAL)
++ ### I.- DOCUMENTACIÓN DE LA API (OPCIONAL)
 
 - [ ] Documentar todos los `endpoints` utilizando `Swagger` y `OpenAPI`
 
 
-### DESPLIEGUE (OPCIONAL)
++ ### J.- DESPLIEGUE (OPCIONAL)
 - [ ] Crear una URL de producción para este proyecto, a través de [render.com](https://render.com)
 
 
