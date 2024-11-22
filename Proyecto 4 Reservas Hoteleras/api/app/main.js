@@ -450,7 +450,7 @@ const searchUsersByNumPassengers = () => {
 //// Función de Controlador para Listar las Reservas de Pasajeros por rango de fechas
 
 const searchUsersByDateRange = () => {
-   const searchDateForm = document.getElementById('search-date');
+   const searchDateForm = document.getElementById('search-dates');
     searchDateForm.onsubmit = async (e) => {
         e.preventDefault();
         
@@ -464,8 +464,7 @@ const searchUsersByDateRange = () => {
         try {
 
     // Llamada a la API para obtener las reservas en el hotel especificado
-    /users/dates?start=2024-12-11&end=2024-12-14
-            const response = await fetch(`/users/dates?start=${encodeURIComponent(checkinSelectedSelected)}&end=${encodeURIComponent(checkoutSelectedSelected)}`, {
+            const response = await fetch(`/users/dates?start=${encodeURIComponent(checkinSelected)}&end=${encodeURIComponent(checkoutSelected)}`, {
                 headers: {
                     Authorization: localStorage.getItem('jwt')
                 }
@@ -483,7 +482,7 @@ const searchUsersByDateRange = () => {
             
             if (users.length > 0) {
                 // Genera el HTML para mostrar los usuarios encontrados
-                dateResults.innerHTML = users.map(user => `
+                datesResults.innerHTML = users.map(user => `
                     <div>
                         <h3>Reserva a Nombre de: ${user.name}</h3>
                         <p>ID de la Reserva: ${user._id}</p>
@@ -514,12 +513,12 @@ const searchUsersByDateRange = () => {
                 
     // Si no se encuentran resultados, muestra un mensaje
 
-                dateResults.innerHTML = `<p>No se encontraron reservas en el hotel especificado.</p>`;
+                datesResults.innerHTML = `<p>No se encontraron reservas en el hotel especificado.</p>`;
             }
         } catch (error) {
 
     // Maneja el error y muestra un mensaje
-
+ 
             document.getElementById('date-results').innerHTML = `<p>${error.message}</p>`;
         }
        
