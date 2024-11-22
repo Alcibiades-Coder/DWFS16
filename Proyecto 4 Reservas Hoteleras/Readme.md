@@ -1882,17 +1882,20 @@ Se crea el repositorio publico en GITHUB con nombre Proyecto 4 Reservas Hotelera
 
 
 + ### H.- ENTREGA A TIEMPO
-- [ ] Entregar a tiempo el proyecto.
 
+- [OK ] Entregar a tiempo el proyecto.
+
+El proyecto se entrega en fecha 25-11-2024.
 
 + ### I.- DOCUMENTACIÓN DE LA API (OPCIONAL)
 
 - [ ] Documentar todos los `endpoints` utilizando `Swagger` y `OpenAPI`
 
-
 + ### J.- DESPLIEGUE (OPCIONAL)
-- [ ] Crear una URL de producción para este proyecto, a través de [render.com](https://render.com)
 
+- [OK] Crear una URL de producción para este proyecto, a través de [render.com](https://render.com)
+
+Se crea un Web Service en Render.com en el siguiente [Link](https://api-reservas-hoteleras.onrender.com/)
 
 
 ****
