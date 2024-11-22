@@ -1825,12 +1825,63 @@ Como respuesta se obtiene el codigo de status 204 (No Content) de la siguiente f
     
 - [OK] Almacenar los datos de las reservas en una estructura de datos.
 
+Para el almacenamiento de los datos se utilizo el sistema de base de datos MongoDB Atlas y su servicio gratuito y en Node.JS se instalaron las dependecias de Mongoose paquete para conectar y administrar bases de datos de MongoDB.
+
+Los datos fueron almacenados según en los archivos de modelos  `/models/User.js` y `/models/Auth.js` con las siguientes estructuras
+
+`/models/User.js`
+
+```
+//// Importaciones
+
+const mongoose = require('mongoose');
+
+//// Objeto Modelo de DB para Reservas
+
+const Users = mongoose.model('User', {
+    idsearch: { type: String, required: false, minLength: 3},
+    name: { type: String, required: true, minLength: 3},
+    date: { type: Date, required: true, minLength: 3},
+    city: { type: String, required: true, minLength: 3},
+    hotel: { type: String, required: true, minLength: 1},
+    numpassengers: { type: Number, required: true, minLength: 1},
+    numkids: { type: Number, required: true, minLength: 1},
+    roomtype: { type: String, required: true, minLength: 3},
+    checkin: { type: Date, required: true, minLength: 3},
+    checkout: { type: Date, required: true, minLength: 3},
+    state: { type: String, required: true, minLength: 3},
+})
+
+module.exports = Users;
+```
+
+`/models/Auth.js`
+
+```
+//// Importaciones
+
+const mongoose = require('mongoose');
+
+//// Objeto Modelo de DB para Autenticación
+
+const Auths = mongoose.model('Auth', {
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    salt: { type: String, required: true },
+});
+
+module.exports = Auths;
+```
+
 
 + ### G.- CONTROL DE VERSIONES
-- [ ] Crear un repositorio en GitHub y subir el proyecto al mismo.
+
+- [OK] Crear un repositorio en GitHub y subir el proyecto al mismo.
+
+Se crea el repositorio publico en GITHUB con nombre Proyecto 4 Reservas Hoteleras en el [Link](https://github.com/Alcibiades-Coder/DWFS16/tree/main/Proyecto%204%20Reservas%20Hoteleras).
 
 
-+ ### H.- ACTUALIZACIÓN DE RESERVA ENTREGA A TIEMPO
++ ### H.- ENTREGA A TIEMPO
 - [ ] Entregar a tiempo el proyecto.
 
 
@@ -1845,24 +1896,3 @@ Como respuesta se obtiene el codigo de status 204 (No Content) de la siguiente f
 
 
 ****
-
-## 6. Criterios de evaluación
-
-Tu calificación estará definida en base a los siguientes criterios:
-
-
-| ÁREA       | % DEL TOTAL |
-| ------------- |:-------------:|
-|Arquitectura de carpetas y organización de código|50%
-|Estructura de datos y persistencia de información|20%
-|Uso adecuado del control de versiones (Git & GitHub)| 20%
-|Entrega a tiempo| 10%
-
-
-****
-
-## 7. Entregas
-
-- **Definición de fechas.** Habla con tus coaches sobre el periodo de entregas del proyecto. Es importante que te organices y hagas un seguimiento constante de tus avances para cumplir con los plazos establecidos.
-
-- **Cumple con los requisitos y entregables.** En caso de que no logres cumplir con todos los requisitos, se te asignará un progreso proporcional a lo que lograste. Recuerda que lo importante es entregar siempre tu proyecto, independientemente del grado de completitud.
