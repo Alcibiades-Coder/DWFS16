@@ -102,7 +102,8 @@ Objtivos Aprendidos en Clases
 - Se Trabajó con datos estructurados.
 - Se Implementó la lógica de negocios.
 - Se Documentó una API.
-Objetivos Aprendidos de forma Autodidacta
+  
+### Objetivos Aprendidos de forma Autodidacta
 - Se Manejaron los datos en una Base de Datos MongoDB Atlas.
 - Se Integró la API al DOM mediante una plantilla simple y formularios HTML.
 - Se Integró el Registro y Login mediante el uso de JSON Web Tokens y encriptación.
