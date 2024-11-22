@@ -5,7 +5,7 @@
 
 * [1. Intro](#1-intro)
 * [2. Demo](#2-demo)
-* [3. ¿Qué se construyó?](#3-qu%C3%A9-se-construiyó)
+* [3. ¿Qué se construyó?](#3-qué-se-construyó)
 * [4. Objetivos de Aprendizaje](#4-objetivos-de-aprendizaje)
 * [5. Requisitos](#5-requisitos-y-entregables)
 * [6. Criterios de evaluación](#6-criterios-de-evaluaci%C3%B3n)
@@ -67,7 +67,7 @@ Proyecto\ 4\ Reservas\ Hoteleras
 
 ****
 
-## 3. Objetivos de aprendizaje logrados
+## 4. Objetivos de aprendizaje logrados
 
 ### Objtivos Aprendidos en Clases
 - Se Aplicaron las operaciones CRUD en un segmento de datos.
@@ -82,7 +82,7 @@ Proyecto\ 4\ Reservas\ Hoteleras
 - Se Integró el Registro y Login mediante el uso de JSON Web Tokens y encriptación.
 ****
 
-## 4. Requisitos y entregables
+## 5. Requisitos y entregables
 
 Usa esta lista para saber los requisitos mínimos del proyecto:
 ### GENERAL
