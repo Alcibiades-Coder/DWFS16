@@ -140,7 +140,7 @@ Proyecto\ 4\ Reservas\ Hoteleras
  
 ### APLICACIÓN DE SERVICIOS CRUD
 
-## CREACIÓN DE RESERVAS
++ ### A.- CREACIÓN DE RESERVAS
 
 - [OK] Permitir la creación de reservas con los detalles necesarios (por ejemplo, hotel, tipo de habitación, número de huéspedes, fechas, etc.).
 
@@ -334,7 +334,7 @@ Como respuesta se obtiene el ID de la reserva creada y el codigo de status 201 (
 "673f39aa56c8ff457832b80b"
 ```
 
-## LISTAR RESERVAS
++ ### B.- LISTAR RESERVAS
   
 - [OK] Permitir la visualización de la lista de reservas.
 
@@ -444,7 +444,7 @@ Como respuesta se obtiene el arreglo de objetos de reservas el codigo de status 
 ]
 ```
 
-## BUSQUEDA DE RESERVAS POR ID
++ ### C.- BUSQUEDA DE RESERVAS POR ID
  
 - [OK] Permitir la obtención de la información de una reserva específica.
 
@@ -588,13 +588,13 @@ Como respuesta se obtiene el objeto de reservas con el ID buscado y el codigo de
 }
 ```
 
-## BUSQUEDAS POR DIFERENTES CRITERIOS
++ ### D.- BUSQUEDAS POR DIFERENTES CRITERIOS
 
 - [OK] Permitir la búsqueda de reservas por hotel, rango de fechas, tipo de habitación, estado y número de huéspedes.
 
-# BUSQUEDA POR HOTEL
+* ### D.1.- BUSQUEDA POR HOTEL
 
-En el Archivo `/app/main.js` se crea el formulario para poder ingresar los datos de la reserva.
+En el Archivo `/app/main.js` se crea el formulario para poder ingresar el hotel de la reserva.
 
 ```
 <h2>Buscar Reserva por Hotel</h2>
@@ -767,15 +767,721 @@ Como respuesta se obtiene el arreglo de objetos de reservas con el HOTEL SELECCI
 ]
 ```
 
+### BUSQUEDA POR RANGO DE FECHAS
 
-# BUSQUEDA POR RANGO DE FECHAS
+En el Archivo `/app/main.js` se crea el formulario para poder ingresar rango de fechas de las reservas.
 
-# BUSQUEDA POR TIPO DE HABITACIÓN
+```
+ <h2>Buscar Reservas por Rango de Fechas</h2>
+        <form id="search-dates">
+            <label>Fecha de Inicio:</label>
+            <input type="date" id="start-date" name="start-date" />
+            <label>Fecha de Fin:</label>
+            <input type="date" id="end-date" name="end-date" />
+        <button type="submit">Buscar</button>
+        </form>       
+```
 
-# BUSQUEDA POR ESTADO DE LA RESERVA
+Tambien se crea el contenedor que desplegará los resultados de la busqueda.
+```
+<div id="date-results"></div>
+```
 
-# BUSQUEDA POR NÚMERO DE HUESPEDES
+Para realizar la busqueda se crea la función `searchUsersByDateRange` que realiza un Fetch a `/users/dates?start=YYYY-MM-dd&end=YYYY-MM-dd` y despliega los resultados en una plantilla en el contendor creado para este fin.
+```
+//// Función de Controlador para Listar las Reservas de Pasajeros por rango de fechas
 
+const searchUsersByDateRange = () => {
+   const searchDateForm = document.getElementById('search-date');
+    searchDateForm.onsubmit = async (e) => {
+        e.preventDefault();
+        
+    // Obtiene el nombre del hotel del campo de selección
+
+        const dateCheckIn = document.getElementById('start-date');
+        const dateCheckOut = document.getElementById('start-date');
+        const checkinSelected = dateCheckIn.value;
+        const checkoutSelected = dateCheckOut.value;
+
+        try {
+
+    // Llamada a la API para obtener las reservas en el hotel especificado
+    /users/dates?start=2024-12-11&end=2024-12-14
+            const response = await fetch(`/users/dates?start=${encodeURIComponent(checkinSelectedSelected)}&end=${encodeURIComponent(checkoutSelectedSelected)}`, {
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("No se encontraron reservas para el hotel especificado.");
+            }
+
+            const users = await response.json();
+
+    // Selecciona el contenedor de resultados de búsqueda por hotel
+
+            const datesResults = document.getElementById('date-results');
+            
+            if (users.length > 0) {
+                // Genera el HTML para mostrar los usuarios encontrados
+                dateResults.innerHTML = users.map(user => `
+                    <div>
+                        <h3>Reserva a Nombre de: ${user.name}</h3>
+                        <p>ID de la Reserva: ${user._id}</p>
+                        <p>Hotel: ${user.hotel}</p>
+                        <p>Para: ${user.numpassengers} Adultos y ${user.numkids} Niños</p>
+                        <p>Tipo de Habitación: ${user.roomtype}</p>
+                        <p>Fecha de Ingreso: ${user.checkin}</p>
+                        <p>Fecha de Salida: ${user.checkout}</p>
+                        <p>Estado Reserva: ${user.state}</p>
+                        <button data-id="${user._id}">Eliminar</button>
+                    </div>
+                `).join('');
+
+    // Controlador para Borrar Reserva de Pasajero por ID
+
+                users.forEach(user => {
+                    const deleteButton = document.querySelector(`[data-id="${user._id}"]`);
+                    deleteButton.onclick = async () => {
+                        await fetch(`/users/${user._id}`, {
+                            method: 'DELETE',
+                            headers: { Authorization: localStorage.getItem('jwt') },
+                        });
+                        deleteButton.parentElement.remove();
+                        alert('Reserva eliminada con éxito');
+                    };
+                });
+            } else {
+                
+    // Si no se encuentran resultados, muestra un mensaje
+
+                dateResults.innerHTML = `<p>No se encontraron reservas en el hotel especificado.</p>`;
+            }
+        } catch (error) {
+
+    // Maneja el error y muestra un mensaje
+ 
+            document.getElementById('date-results').innerHTML = `<p>${error.message}</p>`;
+        }
+       
+
+    };
+};
+
+
+```
+
+El Fetch hace referencia al EndPoint `/users/dates` con el metodo GET que es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.searchByDates`.
+
+```
+app.get('/users/dates', isAuthenticated, user.searchByDates);
+```
+
+La logica de la función controladora `user.searchByDates` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
+```
+// Controlador para buscar por rango de fechas
+
+searchByDates: async (req, res) => {
+    const { start, end } = req.query;
+
+    if (!start || !end) {
+        return res.status(400).json({ message: 'Las fechas de inicio y fin son requeridas.' });
+    }
+
+    try {
+        
+        const startDate = new Date(start);
+        const endDate = new Date(end);  
+        
+        const bookings = await Users.find({
+            checkin: { $lte: endDate },
+            checkout: { $gte: startDate }
+        });
+
+        res.json(bookings);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error interno del servidor.' });
+    }
+},
+```
+
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header y el HOTEL SELECCIONADO como parametros a la API de la siguiente forma:
+```
+GET /users/dates?start="FECHA CHECKIN YYYY-MM-dd"&end="FECHA CHECKOUT YYYY-MM-dd HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+If-None-Match: W/"116-z5Jq0HRx/xyf8ONAjVVNAPdelkg"
+Referer: http://127.0.0.1:3000/?start-date=2024-12-12&end-date=2024-12-13
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+```
+
+Como respuesta se obtiene el arreglo de objetos de reservas con el rango de fechas seleccionado y el codigo de status 304 (Not Modified) de la siguiente forma:
+```
+[
+    {
+        "_id": "673f39aa56c8ff457832b80b",
+        "name": "John Doe Doe",
+        "date": "1980-01-01T00:00:00.000Z",
+        "city": "Santiago",
+        "hotel": "Paraiso",
+        "numpassengers": 2,
+        "numkids": 0,
+        "roomtype": "Double",
+        "checkin": "2024-12-12T00:00:00.000Z",
+        "checkout": "2024-12-13T00:00:00.000Z",
+        "state": "Creada",
+        "__v": 0
+    }
+]
+```
+
+### BUSQUEDA POR TIPO DE HABITACIÓN
+
+En el Archivo `/app/main.js` se crea el formulario para poder ingresar el tipo de habitación de la reserva.
+
+```
+<h2>Buscar Reserva por Tipo de Habitación</h2>
+            <form id="search-room">
+                <label>Tipo de Habitación:</label>
+                    <select id="roomtype-name">
+                        <option value="Single">Single</option>
+                        <option value="Double">Double</option>
+                        <option value="Double Queen">Double Queens</option>
+                        <option value="Double Kings">Double Kings</option>
+                        <option value="Master Suite">Master Suite</option>
+                    </select>
+            <button type="submit">Buscar</button>
+            </form>            
+```
+
+Tambien se crea el contenedor que desplegará los resultados de la busqueda.
+```
+<div id="rooms-results"></div>
+```
+
+Para realizar la busqueda se crea la función `searchUsersByRoomType` que realiza un Fetch a `/users/roomtype?roomtype="HABITACIÓN SELECCIONADA` y despliega los resultados en una plantilla en el contendor creado para este fin.
+```
+//// Función de Controlador para Listar las Reservas de Pasajeros por tipo de Habitación
+
+const searchUsersByRoomType = () => {
+    const searchRoomForm = document.getElementById('search-room');
+    searchRoomForm.onsubmit = async (e) => {
+        e.preventDefault();
+        
+    // Obtiene el nombre del hotel del campo de selección
+
+        const roomName = document.getElementById('roomtype-name');
+        console.log(roomName.value);
+        const roomSelected = roomName.value;
+        
+        try {
+
+    // Llamada a la API para obtener las reservas en el hotel especificado
+
+            const response = await fetch(`/users/roomtype?roomtype=${encodeURIComponent(roomSelected)}`, {
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("No se encontraron habitaciones para el tipo especificado.");
+            }
+
+            const users = await response.json();
+
+    // Selecciona el contenedor de resultados de búsqueda por hotel
+
+            const roomsResults = document.getElementById('rooms-results');
+            
+            if (users.length > 0) {
+
+    // Genera el HTML para mostrar los usuarios encontrados
+
+                roomsResults.innerHTML = users.map(user => `
+                    <div>
+                        <h3>Reserva a Nombre de: ${user.name}</h3>
+                        <p>ID de la Reserva: ${user._id}</p>
+                        <p>Hotel: ${user.hotel}</p>
+                        <p>Para: ${user.numpassengers} Adultos y ${user.numkids} Niños</p>
+                        <p>Tipo de Habitación: ${user.roomtype}</p>
+                        <p>Fecha de Ingreso: ${user.checkin}</p>
+                        <p>Fecha de Salida: ${user.checkout}</p>
+                        <p>Estado Reserva: ${user.state}</p>
+                        <button data-id="${user._id}">Eliminar</button>
+                    </div>
+                `).join('');
+
+    // Función de Controlador para Borrar Reserva de Pasajero por ID
+
+                users.forEach(user => {
+                    const deleteButton = document.querySelector(`[data-id="${user._id}"]`);
+                    deleteButton.onclick = async () => {
+                        await fetch(`/users/${user._id}`, {
+                            method: 'DELETE',
+                            headers: { Authorization: localStorage.getItem('jwt') },
+                        });
+                        deleteButton.parentElement.remove();
+                        alert('Reserva eliminada con éxito');
+                    };
+                });
+            } else {
+
+    // Si no se encuentran resultados, muestra un mensaje
+
+                roomsResults.innerHTML = `<p>No se encontraron reservas en el hotel especificado.</p>`;
+            }
+        } catch (error) {
+
+    // Maneja el error y muestra un mensaje
+
+            document.getElementById('rooms-results').innerHTML = `<p>${error.message}</p>`;
+        }
+       
+
+    };
+};
+```
+
+El Fetch hace referencia al EndPoint `/users/roomtype` con el metodo GET que es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.searchRoomType`.
+
+```
+app.get('/users/roomtype', isAuthenticated, user.searchRoomType);
+```
+
+La logica de la función controladora `user.searchRoomType` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
+```
+// Controlador para Buscar por Tipo de Habitación
+
+searchRoomType:  async (req, res) => {
+    const roomtype = req.query.roomtype;
+
+    if (!roomtype) {
+        return res.status(400).json({ message: 'El tipo de habitación es obligatorio' });
+    }
+
+    try {
+        
+        const rooms = await Users.find({ roomtype: roomtype });
+
+        if (rooms.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron habitaciones del tipo especificado.' });
+        }
+
+        
+        return res.status(200).json(rooms);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Hubo un error al obtener las habitaciones' });
+    }
+},
+```
+
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header y el HOTEL SELECCIONADO como parametros a la API de la siguiente forma:
+```
+GET /users/roomtype?roomtype=Double HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+Referer: http://127.0.0.1:3000/?start-date=2024-12-12&end-date=2024-12-13
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+```
+
+Como respuesta se obtiene el arreglo de objetos de reservas con el rango de fechas seleccionado y el codigo de status 304 (Not Modified) de la siguiente forma:
+```
+[
+    {
+        "_id": "673f39aa56c8ff457832b80b",
+        "name": "John Doe Doe",
+        "date": "1980-01-01T00:00:00.000Z",
+        "city": "Santiago",
+        "hotel": "Paraiso",
+        "numpassengers": 2,
+        "numkids": 0,
+        "roomtype": "Double",
+        "checkin": "2024-12-12T00:00:00.000Z",
+        "checkout": "2024-12-13T00:00:00.000Z",
+        "state": "Creada",
+        "__v": 0
+    }
+]
+```
+
+### BUSQUEDA POR ESTADO DE LA RESERVA
+
+En el Archivo `/app/main.js` se crea el formulario para poder ingresar el estado de las reservas.
+
+```
+ <h2>Buscar Reserva por Estado</h2>
+            <form id="search-state">
+                <label>Tipo de Estado:</label>
+                    <select id="state-name">
+                        <option value="Creada">Creada</option>
+                        <option value="Modificada">Modificada</option>
+                    </select>
+            <button type="submit">Buscar</button>
+            </form>     
+```
+
+Tambien se crea el contenedor que desplegará los resultados de la busqueda.
+```
+<div id="state-results"></div>
+```
+
+Para realizar la busqueda se crea la función `searchUsersByState` que realiza un Fetch a `/users/state?state="ESTADO DE LA RESERVA"` y despliega los resultados en una plantilla en el contendor creado para este fin.
+```
+//// Función de Controlador para Listar las Reservas de Pasajeros por estado de reserva
+
+const searchUsersByState = () => {
+    const searchStateForm = document.getElementById('search-state');
+    searchStateForm.onsubmit = async (e) => {
+        e.preventDefault();
+        
+    // Obtiene el nombre del hotel del campo de selección
+
+        const stateName = document.getElementById('state-name');
+        const stateSelected = stateName.value;
+
+        try {
+
+    // Llamada a la API para obtener las reservas en el hotel especificado
+            
+            const response = await fetch(`/users/state?state=${encodeURIComponent(stateSelected)}`, {
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("No se encontraron reservas para el estado especificado.");
+            }
+
+            const users = await response.json();
+
+    // Selecciona el contenedor de resultados de búsqueda por hotel
+    
+            const stateResults = document.getElementById('state-results');
+            
+            if (users.length > 0) {
+                // Genera el HTML para mostrar los usuarios encontrados
+                stateResults.innerHTML = users.map(user => `
+                    <div>
+                        <h3>Reserva a Nombre de: ${user.name}</h3>
+                        <p>ID de la Reserva: ${user._id}</p>
+                        <p>Hotel: ${user.hotel}</p>
+                        <p>Para: ${user.numpassengers} Adultos y ${user.numkids} Niños</p>
+                        <p>Tipo de Habitación: ${user.roomtype}</p>
+                        <p>Fecha de Ingreso: ${user.checkin}</p>
+                        <p>Fecha de Salida: ${user.checkout}</p>
+                        <p>Estado Reserva: ${user.state}</p>
+                        <button data-id="${user._id}">Eliminar</button>
+                    </div>
+                `).join('');
+
+//// Función de Controlador para Borrar Reserva de Pasajero por ID          
+
+                users.forEach(user => {
+                    const deleteButton = document.querySelector(`[data-id="${user._id}"]`);
+                    deleteButton.onclick = async () => {
+                        await fetch(`/users/${user._id}`, {
+                            method: 'DELETE',
+                            headers: { Authorization: localStorage.getItem('jwt') },
+                        });
+                        deleteButton.parentElement.remove();
+                        alert('Reserva eliminada con éxito');
+                    };
+                });
+            } else {
+
+    // Si no se encuentran resultados, muestra un mensaje
+                
+                stateResults.innerHTML = `<p>No se encontraron reservas en el hotel especificado.</p>`;
+            }
+        } catch (error) {
+
+    // Maneja el error y muestra un mensaje
+
+            document.getElementById('state-results').innerHTML = `<p>${error.message}</p>`;
+        }
+       
+
+    };
+};
+```
+
+El Fetch hace referencia al EndPoint `/users/state` con el metodo GET que es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.searchByState`.
+
+```
+app.get('/users/state', isAuthenticated, user.searchByState);
+```
+
+La logica de la función controladora `user.searchByState` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
+```
+// Controlador para buscar por estado de la reserva
+
+searchByState:  async (req, res) => {
+    const state = req.query.state; // Obtiene el nombre del hotel desde la consulta (query param)
+
+    if (!state) {
+        return res.status(400).json({ message: 'El nombre del estado es obligatorio' });
+    }
+
+    try {
+        
+        const states = await Users.find({ state: state });
+
+        if (states.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron estados especificados.' });
+        }
+
+        
+        return res.status(200).json(states);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Hubo un error al obtener las reservas' });
+    }
+},
+
+```
+
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header y el HOTEL SELECCIONADO como parametros a la API de la siguiente forma:
+```
+GET /users/state?state=Creada HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+Referer: http://127.0.0.1:3000/?start-date=2024-12-12&end-date=2024-12-13
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+```
+
+Como respuesta se obtiene el arreglo de objetos de reservas con el estado seleccionado y el codigo de status 200 (OK) de la siguiente forma:
+```
+[
+    {
+        "_id": "673f39aa56c8ff457832b80b",
+        "name": "John Doe Doe",
+        "date": "1980-01-01T00:00:00.000Z",
+        "city": "Santiago",
+        "hotel": "Paraiso",
+        "numpassengers": 2,
+        "numkids": 0,
+        "roomtype": "Double",
+        "checkin": "2024-12-12T00:00:00.000Z",
+        "checkout": "2024-12-13T00:00:00.000Z",
+        "state": "Creada",
+        "__v": 0
+    }
+]
+```
+### BUSQUEDA POR NÚMERO DE HUESPEDES
+
+En el Archivo `/app/main.js` se crea el formulario para poder ingresar el número de adutlos de las reservas.
+
+```
+       <h2>Buscar Reserva por N° de Adultos</h2>
+            <form id="search-numpassengers">
+                <label>Pasajeros Adultos en la Reserva:</label>
+                <input type="text" id="search-adults" placeholder="Ingrese el N° de Adultos en la reserva" />
+            <button type="submit">Buscar</button>
+            </form>         
+```
+
+Tambien se crea el contenedor que desplegará los resultados de la busqueda.
+```
+<div id="adults-results"></div>
+```
+
+Para realizar la busqueda se crea la función `searchUsersByNumPassengers` que realiza un Fetch a `/users/adults?adults=="N° DE ADULTOS DE LA RESERVA"` y despliega los resultados en una plantilla en el contendor creado para este fin.
+```
+//// Función Controlador para Listar las Reservas de Pasajeros por Número de Adultos
+
+const searchUsersByNumPassengers = () => {
+    const searchAdultForm = document.getElementById('search-numpassengers');
+    searchAdultForm.onsubmit = async (e) => {
+        e.preventDefault();
+        
+    // Obtiene el nombre del hotel del campo de selección
+ 
+        const adults = document.getElementById('search-adults').value.trim();
+        
+        try {
+
+    // Llamada a la API para obtener las reservas en el hotel especificado
+            
+            const response = await fetch(`/users/adults?adults=${encodeURIComponent(adults)}`, {
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("No se encontraron resultados para el N° especificado.");
+            }
+
+            const users = await response.json();
+
+    // Selecciona el contenedor de resultados de búsqueda por hotel
+
+            const adultsResults = document.getElementById('adults-results');
+            
+            if (users.length > 0) {
+
+    // Genera el HTML para mostrar los usuarios encontrados
+
+                adultsResults.innerHTML = users.map(user => `
+                    <div>
+                        <h3>Reserva a Nombre de: ${user.name}</h3>
+                        <p>ID de la Reserva: ${user._id}</p>
+                        <p>Hotel: ${user.hotel}</p>
+                        <p>Para: ${user.numpassengers} Adultos y ${user.numkids} Niños</p>
+                        <p>Tipo de Habitación: ${user.roomtype}</p>
+                        <p>Fecha de Ingreso: ${user.checkin}</p>
+                        <p>Fecha de Salida: ${user.checkout}</p>
+                        <p>Estado Reserva: ${user.state}</p>
+                        <button data-id="${user._id}">Eliminar</button>
+                    </div>
+                `).join('');
+
+    // Controlador para Borrar Reserva de Pasajero por ID
+
+                users.forEach(user => {
+                    const deleteButton = document.querySelector(`[data-id="${user._id}"]`);
+                    deleteButton.onclick = async () => {
+                        await fetch(`/users/${user._id}`, {
+                            method: 'DELETE',
+                            headers: { Authorization: localStorage.getItem('jwt') },
+                        });
+                        deleteButton.parentElement.remove();
+                        alert('Reserva eliminada con éxito');
+                    };
+                });
+            } else {
+    // Si no se encuentran resultados, muestra un mensaje
+
+                adultsResults.innerHTML = `<p>No se encontraron reservas con N° de adultos especificado.</p>`;
+            }
+        } catch (error) {
+
+    // Maneja el error y muestra un mensaje
+
+            document.getElementById('adults-results').innerHTML = `<p>${error.message}</p>`;
+        }
+       
+
+    };
+};
+```
+
+El Fetch hace referencia al EndPoint `/users/adults` con el metodo GET que es utilizado por Express en el archivo `/api.js`. Cabe notar que el usuario de la API debe estar autenticado y sus credenciales son manejadas por la función `isAuthenticated`. Tambien el Endpoint hace referencia a la función controladora `user.searchByNumPassengers`.
+
+```
+app.get('/users/adults', isAuthenticated, user.searchByNumPassengers);
+```
+
+La logica de la función controladora `user.searchByNumPassengers` del EndPoint se encuentra en su archivo controlador `/controllers/user.controller.js` y es la siguiente:
+```
+// Controlador para Buscar por Número de Pasajeros Adultos
+
+searchByNumPassengers: async (req, res) => {
+    const { adults } = req.query;
+
+    if (!adults) {
+        return res.status(400).json({ message: 'El número de adultos es requerido.' });
+    }
+
+    try {
+        
+        const numAdults = parseInt(adults);
+
+        if (isNaN(numAdults)) {
+            return res.status(400).json({ message: 'El número de adultos debe ser un valor numérico.' });
+        }
+
+        
+        const bookings = await Users.find({ numpassengers: numAdults });
+
+        
+        res.json(bookings);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error interno del servidor.' });
+    }
+},
+
+```
+
+El Fetch realizado por el controlador adjunta el JSON Web Token dentro del Header y el HOTEL SELECCIONADO como parametros a la API de la siguiente forma:
+```
+GET /users/adults?adults="N° DE ADULTOS DE LA RESERVA" HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: es-419,es
+Authorization: Bearer "JSON Web Token" // Debe ir el valor del JSON Web Token almacenado en la variable jwt
+Connection: keep-alive
+Host: 127.0.0.1:3000
+Referer: http://127.0.0.1:3000/?start-date=2024-12-12&end-date=2024-12-13
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Sec-GPC: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+sec-ch-ua: "Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+```
+
+Como respuesta se obtiene el arreglo de objetos de reservas con el estado seleccionado y el codigo de status 200 (OK) de la siguiente forma:
+```
+[
+    {
+        "_id": "673f39aa56c8ff457832b80b",
+        "name": "John Doe Doe",
+        "date": "1980-01-01T00:00:00.000Z",
+        "city": "Santiago",
+        "hotel": "Paraiso",
+        "numpassengers": 2,
+        "numkids": 0,
+        "roomtype": "Double",
+        "checkin": "2024-12-12T00:00:00.000Z",
+        "checkout": "2024-12-13T00:00:00.000Z",
+        "state": "Creada",
+        "__v": 0
+    }
+]
+```
   
 - [OK] Permitir la actualización de la información de una reserva.
   
