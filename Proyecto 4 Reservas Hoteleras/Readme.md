@@ -3,11 +3,11 @@
 
 ## **ÍNDICE**
 
-* 1. Intro
-* 2. Demo
-* 3. ¿Qué se construyó?
-* 4. Objetivos de Aprendizaje
-* 5. Requisitos
+1. Intro
+2. Demo
+3. ¿Qué se construyó?
+4. Objetivos de Aprendizaje
+5. Requisitos
 
 
 ****
